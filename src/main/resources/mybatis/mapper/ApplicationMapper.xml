@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.venues.lt.demo.mapper.ApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.Application" >
+    <id column="application" property="application" jdbcType="INTEGER" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="time_begin" property="timeBegin" jdbcType="TIME" />
+    <result column="time_end" property="timeEnd" jdbcType="TIME" />
+    <result column="room_target1" property="roomTarget1" jdbcType="VARCHAR" />
+    <result column="room_target2" property="roomTarget2" jdbcType="VARCHAR" />
+    <result column="room_target3" property="roomTarget3" jdbcType="VARCHAR" />
+    <result column="activity" property="activity" jdbcType="VARCHAR" />
+    <result column="notice_state" property="noticeState" jdbcType="INTEGER" />
+    <result column="application_user" property="applicationUser" jdbcType="CHAR" />
+    <result column="application_dept" property="applicationDept" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from application
+    where application = #{application,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.venues.lt.demo.model.Application" >
+    insert into application (application, room_name, year, 
+      term, date, time_begin, time_end, 
+      room_target1, room_target2, room_target3, 
+      activity, notice_state, application_user, 
+      application_dept)
+    values (#{application,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
+      #{term,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{timeBegin,jdbcType=TIME}, #{timeEnd,jdbcType=TIME}, 
+      #{roomTarget1,jdbcType=VARCHAR}, #{roomTarget2,jdbcType=VARCHAR}, #{roomTarget3,jdbcType=VARCHAR}, 
+      #{activity,jdbcType=VARCHAR}, #{noticeState,jdbcType=INTEGER}, #{applicationUser,jdbcType=CHAR}, 
+      #{applicationDept,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Application" >
+    update application
+    set room_name = #{roomName,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      term = #{term,jdbcType=INTEGER},
+      date = #{date,jdbcType=DATE},
+      time_begin = #{timeBegin,jdbcType=TIME},
+      time_end = #{timeEnd,jdbcType=TIME},
+      room_target1 = #{roomTarget1,jdbcType=VARCHAR},
+      room_target2 = #{roomTarget2,jdbcType=VARCHAR},
+      room_target3 = #{roomTarget3,jdbcType=VARCHAR},
+      activity = #{activity,jdbcType=VARCHAR},
+      notice_state = #{noticeState,jdbcType=INTEGER},
+      application_user = #{applicationUser,jdbcType=CHAR},
+      application_dept = #{applicationDept,jdbcType=VARCHAR}
+    where application = #{application,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select application, room_name, year, term, date, time_begin, time_end, room_target1, 
+    room_target2, room_target3, activity, notice_state, application_user, application_dept
+    from application
+    where application = #{application,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select application, room_name, year, term, date, time_begin, time_end, room_target1, 
+    room_target2, room_target3, activity, notice_state, application_user, application_dept
+    from application
+  </select>
+</mapper>

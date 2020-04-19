@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.venues.lt.demo.mapper.TimetableMapper" >
+  <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.Timetable" >
+    <id column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <id column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <id column="class_name" property="className" jdbcType="VARCHAR" />
+    <id column="weekly" property="weekly" jdbcType="VARCHAR" />
+    <id column="section" property="section" jdbcType="VARCHAR" />
+    <id column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="student_num" property="studentNum" jdbcType="Integer" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_title" property="userTitle" jdbcType="VARCHAR" />
+    <result column="week_begin" property="weekBegin" jdbcType="INTEGER" />
+    <result column="week_end" property="weekEnd" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from timetable
+    where course_id = #{courseId,jdbcType=VARCHAR}
+      and course_name = #{courseName,jdbcType=VARCHAR}
+      and class_name = #{className,jdbcType=VARCHAR}
+      and weekly = #{weekly,jdbcType=VARCHAR}
+      and section = #{section,jdbcType=VARCHAR}
+      and room_name = #{roomName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.venues.lt.demo.model.Timetable" >
+    insert into timetable (course_id, course_name, class_name, 
+      weekly, section, room_name, 
+      year, term, student_num, 
+      user_id, user_name, user_title, 
+      week_begin, week_end)
+    values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, 
+      #{weekly,jdbcType=VARCHAR}, #{section,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{year,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, #{studentNum,jdbcType=TINYINT}, 
+      #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userTitle,jdbcType=VARCHAR}, 
+      #{weekBegin,jdbcType=INTEGER}, #{weekEnd,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Timetable" >
+    update timetable
+    set year = #{year,jdbcType=INTEGER},
+      term = #{term,jdbcType=INTEGER},
+      student_num = #{studentNum,jdbcType=TINYINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_title = #{userTitle,jdbcType=VARCHAR},
+      week_begin = #{weekBegin,jdbcType=INTEGER},
+      week_end = #{weekEnd,jdbcType=INTEGER}
+    where course_id = #{courseId,jdbcType=VARCHAR}
+      and course_name = #{courseName,jdbcType=VARCHAR}
+      and class_name = #{className,jdbcType=VARCHAR}
+      and weekly = #{weekly,jdbcType=VARCHAR}
+      and section = #{section,jdbcType=VARCHAR}
+      and room_name = #{roomName,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select course_id, course_name, class_name, weekly, section, room_name, year, term, 
+    student_num, user_id, user_name, user_title, week_begin, week_end
+    from timetable
+    where course_id = #{courseId,jdbcType=VARCHAR}
+      and course_name = #{courseName,jdbcType=VARCHAR}
+      and class_name = #{className,jdbcType=VARCHAR}
+      and weekly = #{weekly,jdbcType=VARCHAR}
+      and section = #{section,jdbcType=VARCHAR}
+      and room_name = #{roomName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select course_id, course_name, class_name, weekly, section, room_name, year, term, 
+    student_num, user_id, user_name, user_title, week_begin, week_end
+    from timetable
+  </select>
+</mapper>

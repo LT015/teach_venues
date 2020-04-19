@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.venues.lt.demo.mapper.AppFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.AppFlow" >
+    <id column="application_id" property="applicationId" jdbcType="INTEGER" />
+    <id column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="app_flow_time" property="appFlowTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from app_flow
+    where application_id = #{applicationId,jdbcType=INTEGER}
+      and flow_id = #{flowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.venues.lt.demo.model.AppFlow" >
+    insert into app_flow (application_id, flow_id, app_flow_time
+      )
+    values (#{applicationId,jdbcType=INTEGER}, #{flowId,jdbcType=INTEGER}, #{appFlowTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.AppFlow" >
+    update app_flow
+    set app_flow_time = #{appFlowTime,jdbcType=TIMESTAMP}
+    where application_id = #{applicationId,jdbcType=INTEGER}
+      and flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select application_id, flow_id, app_flow_time
+    from app_flow
+    where application_id = #{applicationId,jdbcType=INTEGER}
+      and flow_id = #{flowId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select application_id, flow_id, app_flow_time
+    from app_flow
+  </select>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.venues.lt.demo.mapper.BuildingMapper" >
+  <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.Building" >
+    <id column="building_id" property="buildingId" jdbcType="INTEGER" />
+    <result column="building_name" property="buildingName" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="building_describe" property="buildingDescribe" jdbcType="VARCHAR" />
+    <result column="building_image" property="buildingImage" jdbcType="VARCHAR" />
+    <result column="campus" property="campus" jdbcType="VARCHAR" />
+    <result column="room_num" property="roomNum" jdbcType="INTEGER" />
+    <result column="Capacity" property="capacity" jdbcType="INTEGER" />
+    <result column="building_manager" property="buildingManager" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from building
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.venues.lt.demo.model.Building" >
+    insert into building (building_id, building_name, longitude, 
+      latitude, building_describe, building_image, 
+      campus, room_num, Capacity, 
+      building_manager)
+    values (#{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{buildingDescribe,jdbcType=VARCHAR}, #{buildingImage,jdbcType=VARCHAR}, 
+      #{campus,jdbcType=VARCHAR}, #{roomNum,jdbcType=INTEGER}, #{capacity,jdbcType=INTEGER}, 
+      #{buildingManager,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Building" >
+    update building
+    set building_name = #{buildingName,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      building_describe = #{buildingDescribe,jdbcType=VARCHAR},
+      building_image = #{buildingImage,jdbcType=VARCHAR},
+      campus = #{campus,jdbcType=VARCHAR},
+      room_num = #{roomNum,jdbcType=INTEGER},
+      Capacity = #{capacity,jdbcType=INTEGER},
+      building_manager = #{buildingManager,jdbcType=CHAR}
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select building_id, building_name, longitude, latitude, building_describe, building_image, 
+    campus, room_num, Capacity, building_manager
+    from building
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select building_id, building_name, longitude, latitude, building_describe, building_image, 
+    campus, room_num, Capacity, building_manager
+    from building
+  </select>
+</mapper>

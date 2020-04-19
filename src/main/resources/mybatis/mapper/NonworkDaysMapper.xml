@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.venues.lt.demo.mapper.NonworkDaysMapper" >
+  <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.NonworkDays" >
+    <id column="off_day" property="offDay" jdbcType="DATE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+    delete from nonwork_days
+    where off_day = #{offDay,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="com.venues.lt.demo.model.NonworkDays" >
+    insert into nonwork_days (off_day)
+    values (#{offDay,jdbcType=DATE})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select off_day
+    from nonwork_days
+  </select>
+</mapper>

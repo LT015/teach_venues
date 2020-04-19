@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.venues.lt.demo.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.Department" >
+    <id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="building_id" property="buildingId" jdbcType="INTEGER" />
+    <result column="higher_dept_id" property="higherDeptId" jdbcType="INTEGER" />
+    <result column="leader_id" property="leaderId" jdbcType="CHAR" />
+    <result column="super_manager" property="superManager" jdbcType="CHAR" />
+    <result column="dept_picture" property="deptPicture" jdbcType="VARCHAR" />
+    <result column="dept_describe" property="deptDescribe" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from department
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.venues.lt.demo.model.Department" >
+    insert into department (dept_id, dept_name, building_id, 
+      higher_dept_id, leader_id, super_manager, 
+      dept_picture, dept_describe)
+    values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
+      #{higherDeptId,jdbcType=INTEGER}, #{leaderId,jdbcType=CHAR}, #{superManager,jdbcType=CHAR}, 
+      #{deptPicture,jdbcType=VARCHAR}, #{deptDescribe,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Department" >
+    update department
+    set dept_name = #{deptName,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=INTEGER},
+      higher_dept_id = #{higherDeptId,jdbcType=INTEGER},
+      leader_id = #{leaderId,jdbcType=CHAR},
+      super_manager = #{superManager,jdbcType=CHAR},
+      dept_picture = #{deptPicture,jdbcType=VARCHAR},
+      dept_describe = #{deptDescribe,jdbcType=VARCHAR}
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select dept_id, dept_name, building_id, higher_dept_id, leader_id, super_manager, 
+    dept_picture, dept_describe
+    from department
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select dept_id, dept_name, building_id, higher_dept_id, leader_id, super_manager, 
+    dept_picture, dept_describe
+    from department
+  </select>
+</mapper>
