@@ -25,7 +25,7 @@ public class TimeTableServiceImpl  extends BaseServiceImpl<Timetable> implements
     @Autowired
     TimetableMapper timetableMapper;
 
-    public List<TimeTableDto> list(String roomName,int year, int term) {
+    public List<TimeTableDto> list(String roomName) {
         List<Timetable> list = this.creatQuery().andEqualTo("roomName", roomName)
                 .andEqualTo("year",2019)
                 .andEqualTo("term",2)
@@ -139,7 +139,7 @@ public class TimeTableServiceImpl  extends BaseServiceImpl<Timetable> implements
             timetable.setUserName(stringList.get(indexList.get(10)));
             timetable.setUserTitle(stringList.get(indexList.get(11)));
 
-            timetable.setYear(2020);
+            timetable.setYear(2019);
             timetable.setTerm(2);
             String weekly = timetable.getWeekly();
             weekly = weekly.replace(" ", "");

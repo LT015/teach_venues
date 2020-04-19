@@ -11,6 +11,7 @@
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
     <result column="building_id" property="buildingId" jdbcType="INTEGER" />
     <result column="room_manager" property="roomManager" jdbcType="CHAR" />
+    <result column="room_type" property="roomType" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from room
@@ -19,7 +20,7 @@
   <insert id="insert" parameterType="com.venues.lt.demo.model.Room" >
     insert into room (room_name, floor, door_num, 
       capacity, status, area, 
-      dept_id, building_id, room_manager
+      dept_id, building_id, room_manager, room_type
       )
     values (#{roomName,jdbcType=VARCHAR}, #{floor,jdbcType=TINYINT}, #{doorNum,jdbcType=VARCHAR}, 
       #{capacity,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{area,jdbcType=BIT}, 
@@ -35,18 +36,19 @@
       area = #{area,jdbcType=BIT},
       dept_id = #{deptId,jdbcType=INTEGER},
       building_id = #{buildingId,jdbcType=INTEGER},
-      room_manager = #{roomManager,jdbcType=CHAR}
+      room_manager = #{roomManager,jdbcType=CHAR},
+      room_type = #{roomType,jdbcType=VARCHAR},
     where room_name = #{roomName,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
-    room_manager
+    room_manager, room_type
     from room
     where room_name = #{roomName,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
-    room_manager
+    room_manager, room_type
     from room
   </select>
 </mapper>

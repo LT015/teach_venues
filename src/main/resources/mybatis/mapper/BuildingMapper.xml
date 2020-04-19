@@ -12,6 +12,7 @@
     <result column="room_num" property="roomNum" jdbcType="INTEGER" />
     <result column="Capacity" property="capacity" jdbcType="INTEGER" />
     <result column="building_manager" property="buildingManager" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from building
@@ -21,7 +22,7 @@
     insert into building (building_id, building_name, longitude, 
       latitude, building_describe, building_image, 
       campus, room_num, Capacity, 
-      building_manager)
+      building_manager, status)
     values (#{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, 
       #{latitude,jdbcType=DOUBLE}, #{buildingDescribe,jdbcType=VARCHAR}, #{buildingImage,jdbcType=VARCHAR}, 
       #{campus,jdbcType=VARCHAR}, #{roomNum,jdbcType=INTEGER}, #{capacity,jdbcType=INTEGER}, 
@@ -37,18 +38,19 @@
       campus = #{campus,jdbcType=VARCHAR},
       room_num = #{roomNum,jdbcType=INTEGER},
       Capacity = #{capacity,jdbcType=INTEGER},
-      building_manager = #{buildingManager,jdbcType=CHAR}
+      building_manager = #{buildingManager,jdbcType=CHAR},
+      status = #{status,jdbcType=VARCHAR}
     where building_id = #{buildingId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select building_id, building_name, longitude, latitude, building_describe, building_image, 
-    campus, room_num, Capacity, building_manager
+    campus, room_num, Capacity, building_manager, status
     from building
     where building_id = #{buildingId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select building_id, building_name, longitude, latitude, building_describe, building_image, 
-    campus, room_num, Capacity, building_manager
+    campus, room_num, Capacity, building_manager, status
     from building
   </select>
 </mapper>

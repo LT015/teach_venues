@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TimeTableService extends BaseService<Timetable> {
 
-    List<TimeTableDto> list(String roomName, int year, int term);
+    List<TimeTableDto> list(String roomName);
 
     int uploadTimetable( MultipartFile file);
 }

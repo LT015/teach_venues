@@ -2,6 +2,8 @@ package com.venues.lt.demo.controller;
 
 import com.venues.lt.demo.model.Department;
 import com.venues.lt.demo.service.DepartmentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/LBS/department")
+@Api(value = "部门",description = "部门操作api")
 public class DepartmentController {
 
     @Autowired
@@ -29,6 +32,7 @@ public class DepartmentController {
 
     @ResponseBody
     @GetMapping("/list")
+    @ApiOperation(value = "获取部门列表", notes = "获取部门列表")
     public List<Department> list() {
         return departmentService.list();
     }

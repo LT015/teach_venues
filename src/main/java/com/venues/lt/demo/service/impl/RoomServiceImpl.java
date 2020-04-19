@@ -178,7 +178,7 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
             if(!stringList.get(indexList.get(8)).equals("")){
                 room.setRoomManager(stringList.get(indexList.get(8)));
             }
-            room.setType(stringList.get(indexList.get(9)));
+            room.setRoomType(stringList.get(indexList.get(9)));
             roomList.add(room);
         }
         saveRoom(roomList);

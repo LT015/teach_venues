@@ -2,6 +2,8 @@ package com.venues.lt.demo.controller;
 
 import com.venues.lt.demo.model.Building;
 import com.venues.lt.demo.service.BuildingService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/LBS/building")
+@Api(value = "建筑物",description = "建筑物操作api")
 public class BuildingController {
 
     @Autowired
@@ -27,20 +30,16 @@ public class BuildingController {
         buildingService.delete(buildingId);
     }
 
-    @GetMapping("/name/{name:.+}")
-    public List<Building> getBuildingByType(@PathVariable String name) throws UnsupportedEncodingException {
-        name = URLDecoder.decode(name, "utf-8");
-        return buildingService.getBuildingByName(name);
-    }
-
     @ResponseBody
     @GetMapping("/list")
+    @ApiOperation(value = "获取建筑物列表", notes = "获取建筑物列表")
     public List<Building> list() {
         return buildingService.list();
     }
 
     @ResponseBody
     @GetMapping("/{id:.+}")
+    @ApiOperation(value = "根据建筑物id获取建筑物", notes = "")
     public Building getById(@PathVariable int id) {
         return buildingService.queryById(id);
     }

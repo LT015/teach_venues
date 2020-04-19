@@ -8,6 +8,8 @@ import com.venues.lt.demo.util.PubUtil;
 import com.venues.lt.demo.util.ResponseCode;
 import com.venues.lt.demo.util.ResponseData;
 import com.venues.lt.demo.util.ResponseMsg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
@@ -23,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping
+@Api(value = "登录",description = "登录登出api")
 public class LoginController {
 
     @Autowired
@@ -36,6 +39,7 @@ public class LoginController {
 
     @PostMapping("/login/pwd")
     @ResponseBody
+    @ApiOperation(value = "登录", notes = "根据用户名和密码登录")
     public ResponseData login(HttpServletRequest request,HttpServletResponse response,@RequestParam("userId") String userId, @RequestParam("password") String password) {
         if (loginService.checkUser(userId, password)) {
 

@@ -24,4 +24,6 @@ public class Building {
 
     private String buildingManager;
 
+    private String status;
+
 }

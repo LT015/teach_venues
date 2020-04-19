@@ -22,6 +22,6 @@ public class Room {
 
     private String roomManager;
 
-    private String type;
+    private String roomType;
 
 }

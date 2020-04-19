@@ -1,6 +1,7 @@
 package com.venues.lt.demo.controller;
 import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.demo.service.impl.RoomServiceImpl;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/LBS/room")
+@Api(value = "场地",description = "场地操作api")
 public class RoomController {
 
     @Autowired

@@ -109,6 +109,8 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
                 indexList.set(8,titleList.indexOf(title));
             }else if(title.equals("管理者")){
                 indexList.set(9,titleList.indexOf(title));
+            }else if(title.equals("状态")){
+                indexList.set(10,titleList.indexOf(title));
             }
         });
         List<Building> buildingList = new ArrayList<>();
@@ -133,7 +135,7 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
                 building.setCapacity(Integer.valueOf(stringList.get(indexList.get(8)) ));
             }
             building.setBuildingManager(stringList.get(indexList.get(9)));
-
+            building.setStatus(stringList.get(indexList.get(10)));
             buildingList.add(building);
         }
         saveBuilding(buildingList);
