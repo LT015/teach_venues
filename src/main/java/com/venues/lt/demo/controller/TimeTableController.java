@@ -36,20 +36,16 @@ public class TimeTableController {
         return ResponseData.success(list);
     }
 
-    @RequestMapping("/upload")
     @ResponseBody
-    @ApiOperation(value = "上传课表", notes = "上传课表")
-    public  ResponseData pubggupload(@RequestParam("file") MultipartFile file) throws Exception {
-        String name = file.getOriginalFilename();
-        if(name.length() < 6 || !name.substring(name.length()-5).equals(".xlsx")){
-            List<Object> li = new ArrayList<>();
-            li.add("文件格式错误");
+    @PutMapping
+    @ApiOperation(value = "添加课表", notes = "添加课表")
+    public ResponseData uploadFile(@RequestParam("file") MultipartFile file) {
+        int result = timeTableService.uploadTimetable(file);
+        if(result == 1){
+            return ResponseData.success();
+        }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
         }
-        List<List<String>> list = ExcelUtil.excelToObjectList(file.getInputStream());
-
-        return ResponseData.success();
-
     }
 
 

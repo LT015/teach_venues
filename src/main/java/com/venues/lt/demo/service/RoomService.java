@@ -1,5 +1,6 @@
 package com.venues.lt.demo.service;
 
+import com.venues.lt.demo.model.Building;
 import com.venues.lt.demo.model.Room;
 import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.framework.general.service.BaseService;
@@ -15,7 +16,9 @@ public interface RoomService extends BaseService<Room> {
 
     RoomDto selectByIdRoomName(String roomName);
 
-    void updateRoom();
+    void updateRoom(Room room);
+
+    int create(Room room);
 
     int uploadRoom( MultipartFile file);
 

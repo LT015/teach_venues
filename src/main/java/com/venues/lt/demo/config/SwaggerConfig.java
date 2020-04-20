@@ -26,7 +26,7 @@ public class SwaggerConfig {
                 .apiInfo(buildApiInf())
                 .select()
                 //扫描的swagger接口包路径
-                .apis(RequestHandlerSelectors.basePackage("com.example.lt.demo.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.venues.lt.demo.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

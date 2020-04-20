@@ -62,8 +62,13 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
         return handleRoom(room);
     }
 
-    public void updateRoom(){
+    public void updateRoom(Room room){
+        this.updateByPrimaryKey(room);
+    }
 
+    public int create(Room room){
+        this.save(room);
+        return 1;
     }
 
     public int uploadRoom( MultipartFile file) {

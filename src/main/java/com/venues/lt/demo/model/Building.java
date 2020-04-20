@@ -2,8 +2,11 @@ package com.venues.lt.demo.model;
 
 import lombok.Data;
 
+import javax.persistence.Id;
+
 @Data
 public class Building {
+    @Id
     private Integer buildingId;
 
     private String buildingName;

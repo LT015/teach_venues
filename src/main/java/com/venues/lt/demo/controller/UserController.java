@@ -3,6 +3,9 @@ package com.venues.lt.demo.controller;
 
 import com.venues.lt.demo.model.dto.UserDto;
 import com.venues.lt.demo.service.UserService;
+import com.venues.lt.demo.util.ResponseCode;
+import com.venues.lt.demo.util.ResponseData;
+import com.venues.lt.demo.util.ResponseMsg;
 import com.venues.lt.framework.utils.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -84,5 +87,16 @@ public class UserController {
         }
 
         return "";
+    }
+
+    @PutMapping(value = "/list")
+    @ApiOperation(value = "添加用户文件", notes = "添加用户文件")
+    public ResponseData uploadFile(@RequestParam("file") MultipartFile file) {
+        int result = userService.uploadUser(file);
+        if(result == 1){
+            return ResponseData.success();
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
+        }
     }
 }
