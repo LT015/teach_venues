@@ -199,7 +199,9 @@ public class ExcelUtil {
             //判断cell类型
             switch(cell.getCellType()){
                 case Cell.CELL_TYPE_NUMERIC:{
-                    cellValue = String.valueOf(cell.getNumericCellValue());
+                    cellValue = String.valueOf(cell.getNumericCellValue())
+                            .replace(" ","")
+                            .replaceAll("\r|\n", "");
                     break;
                 }
                 case Cell.CELL_TYPE_FORMULA:{
@@ -209,12 +211,16 @@ public class ExcelUtil {
                         cellValue = cell.getDateCellValue();
                     }else{
                         //数字
-                        cellValue = String.valueOf(cell.getNumericCellValue());
+                        cellValue = String.valueOf(cell.getNumericCellValue())
+                                .replace(" ","")
+                                .replaceAll("\r|\n", "");
                     }
                     break;
                 }
                 case Cell.CELL_TYPE_STRING:{
-                    cellValue = cell.getRichStringCellValue().getString();
+                    cellValue = cell.getRichStringCellValue().getString()
+                            .replace(" ","")
+                            .replaceAll("\r|\n", "");
                     break;
                 }
                 default:

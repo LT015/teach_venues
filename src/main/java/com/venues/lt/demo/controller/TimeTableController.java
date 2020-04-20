@@ -28,9 +28,10 @@ public class TimeTableController {
     TimeTableService timeTableService;
 
     @ResponseBody
-    @GetMapping(value = "/roomname/{name:.+}")
+    @GetMapping(value = "/roomname/{roomname:.+}")
     @ApiOperation(value = "获取课表", notes = "根据用户id获教室名称获取课表")
     public ResponseData listByRoomName(@PathVariable String roomname) throws UnsupportedEncodingException {
+        int result = timeTableService.uploadTimetable(null);
         roomname = URLDecoder.decode(roomname, "utf-8");
         List<TimeTableDto> list = timeTableService.list(roomname);
         return ResponseData.success(list);

@@ -8,10 +8,10 @@
     <id column="weekly" property="weekly" jdbcType="VARCHAR" />
     <id column="section" property="section" jdbcType="VARCHAR" />
     <id column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="year" property="year" jdbcType="INTEGER" />
     <result column="term" property="term" jdbcType="INTEGER" />
     <result column="student_num" property="studentNum" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_title" property="userTitle" jdbcType="VARCHAR" />
     <result column="week_begin" property="weekBegin" jdbcType="INTEGER" />
