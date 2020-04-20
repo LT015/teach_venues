@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface FlowMapper extends BaseMapper<Flow> {
-    int deleteByPrimaryKey(@Param("flowId") Integer flowId, @Param("flowOrder") Integer flowOrder);
+    int deleteByKey(@Param("flowId") Integer flowId, @Param("flowOrder") Integer flowOrder);
 
     int insert(Flow record);
 
-    Flow selectByPrimaryKey(@Param("flowId") Integer flowId, @Param("flowOrder") Integer flowOrder);
+    Flow selectByKey(@Param("flowId") Integer flowId, @Param("flowOrder") Integer flowOrder);
 
     List<Flow> selectAll();
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface NonworkDaysMapper extends BaseMapper<NonworkDays> {
-    int deleteByPrimaryKey(Date offDay);
+    int deleteByKey(Date offDay);
 
     int insert(NonworkDays record);
 

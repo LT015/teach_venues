@@ -14,7 +14,7 @@
     <result column="building_manager" property="buildingManager" jdbcType="CHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByKey" parameterType="java.lang.Integer" >
     delete from building
     where building_id = #{buildingId,jdbcType=INTEGER}
   </delete>
@@ -42,7 +42,7 @@
       status = #{status,jdbcType=VARCHAR}
     where building_id = #{buildingId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select building_id, building_name, longitude, latitude, building_describe, building_image, 
     campus, room_num, Capacity, building_manager, status
     from building

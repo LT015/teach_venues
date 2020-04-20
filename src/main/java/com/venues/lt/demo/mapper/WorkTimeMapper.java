@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface WorkTimeMapper extends BaseMapper<WorkTime> {
-    int deleteByPrimaryKey(Integer worktimeId);
+    int deleteByKey(Integer worktimeId);
 
     int insert(WorkTime record);
 
-    WorkTime selectByPrimaryKey(Integer worktimeId);
+    WorkTime selectByKey(Integer worktimeId);
 
     List<WorkTime> selectAll();
 

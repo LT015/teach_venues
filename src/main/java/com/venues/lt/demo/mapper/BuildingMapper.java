@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface BuildingMapper extends BaseMapper<Building> {
-    int deleteByPrimaryKey(Integer buildingId);
+    int deleteByKey(Integer buildingId);
 
     int insert(Building record);
 
-    Building selectByPrimaryKey(Integer buildingId);
+    Building selectByKey(Integer buildingId);
 
     List<Building> selectAll();
 

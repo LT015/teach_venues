@@ -11,7 +11,7 @@
     <result column="dept_picture" property="deptPicture" jdbcType="VARCHAR" />
     <result column="dept_describe" property="deptDescribe" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByKey" parameterType="java.lang.Integer" >
     delete from department
     where dept_id = #{deptId,jdbcType=INTEGER}
   </delete>
@@ -34,7 +34,7 @@
       dept_describe = #{deptDescribe,jdbcType=VARCHAR}
     where dept_id = #{deptId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select dept_id, dept_name, building_id, higher_dept_id, leader_id, super_manager, 
     dept_picture, dept_describe
     from department

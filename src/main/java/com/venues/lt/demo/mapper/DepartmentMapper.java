@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
-    int deleteByPrimaryKey(Integer deptId);
+    int deleteByKey(Integer deptId);
 
     int insert(Department record);
 
-    Department selectByPrimaryKey(Integer deptId);
+    Department selectByKey(Integer deptId);
 
     List<Department> selectAll();
 

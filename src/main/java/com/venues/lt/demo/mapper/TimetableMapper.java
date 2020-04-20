@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface TimetableMapper extends BaseMapper<Timetable> {
 
-    int deleteByPrimaryKey(@Param("courseId") String courseId, @Param("courseName") String courseName, @Param("className") String className, @Param("weekly") String weekly, @Param("section") String section, @Param("roomName") String roomName);
+    int deleteByKey(@Param("courseId") String courseId, @Param("courseName") String courseName, @Param("className") String className, @Param("weekly") String weekly, @Param("section") String section, @Param("roomName") String roomName);
 
     int insert(Timetable record);
 
-    Timetable selectByPrimaryKey(@Param("courseId") String courseId, @Param("courseName") String courseName, @Param("className") String className, @Param("weekly") String weekly, @Param("section") String section, @Param("roomName") String roomName);
+    Timetable selectByKey(@Param("courseId") String courseId, @Param("courseName") String courseName, @Param("className") String className, @Param("weekly") String weekly, @Param("section") String section, @Param("roomName") String roomName);
 
     List<Timetable> selectAll();
 

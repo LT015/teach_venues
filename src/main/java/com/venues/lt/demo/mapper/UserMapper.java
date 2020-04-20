@@ -8,11 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-    int deleteByPrimaryKey(String userId);
+    int deleteByKey(String userId);
 
     int insert(User record);
 
-    User selectByPrimaryKey(String userId);
+    User selectByKey(String userId);
 
     List<User> selectAll();
 

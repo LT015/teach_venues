@@ -13,7 +13,7 @@
     <result column="room_manager" property="roomManager" jdbcType="CHAR" />
     <result column="room_type" property="roomType" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByKey" parameterType="java.lang.String" >
     delete from room
     where room_name = #{roomName,jdbcType=VARCHAR}
   </delete>
@@ -40,7 +40,7 @@
       room_type = #{roomType,jdbcType=VARCHAR},
     where room_name = #{roomName,jdbcType=VARCHAR}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
     room_manager, room_type
     from room

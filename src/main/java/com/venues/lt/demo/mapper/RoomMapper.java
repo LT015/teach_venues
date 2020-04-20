@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface RoomMapper extends BaseMapper<Room> {
-    int deleteByPrimaryKey(String roomName);
+    int deleteByKey(String roomName);
 
     int insert(Room record);
 
-    Room selectByPrimaryKey(String roomName);
+    Room selectByKey(String roomName);
 
     List<Room> selectAll();
 

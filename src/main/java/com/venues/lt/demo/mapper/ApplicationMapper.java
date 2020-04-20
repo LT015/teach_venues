@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface ApplicationMapper extends BaseMapper<Application> {
-    int deleteByPrimaryKey(Integer application);
+    int deleteByKey(Integer application);
 
     int insert(Application record);
 
-    Application selectByPrimaryKey(Integer application);
+    Application selectByKey(Integer application);
 
     List<Application> selectAll();
 

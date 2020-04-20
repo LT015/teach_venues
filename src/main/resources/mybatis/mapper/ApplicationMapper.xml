@@ -17,7 +17,7 @@
     <result column="application_user" property="applicationUser" jdbcType="CHAR" />
     <result column="application_dept" property="applicationDept" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByKey" parameterType="java.lang.Integer" >
     delete from application
     where application = #{application,jdbcType=INTEGER}
   </delete>
@@ -50,7 +50,7 @@
       application_dept = #{applicationDept,jdbcType=VARCHAR}
     where application = #{application,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select application, room_name, year, term, date, time_begin, time_end, room_target1, 
     room_target2, room_target3, activity, notice_state, application_user, application_dept
     from application

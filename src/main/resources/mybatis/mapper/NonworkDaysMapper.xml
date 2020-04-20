@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.NonworkDays" >
     <id column="off_day" property="offDay" jdbcType="DATE" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+  <delete id="deleteByKey" parameterType="java.util.Date" >
     delete from nonwork_days
     where off_day = #{offDay,jdbcType=DATE}
   </delete>

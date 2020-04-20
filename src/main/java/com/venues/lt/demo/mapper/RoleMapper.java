@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
-    int deleteByPrimaryKey(Integer roleId);
+    int deleteByKey(Integer roleId);
 
     int insert(Role record);
 
-    Role selectByPrimaryKey(Integer roleId);
+    Role selectByKey(Integer roleId);
 
     List<Role> selectAll();
 

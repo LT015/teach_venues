@@ -11,11 +11,11 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ExamMapper extends BaseMapper<Exam> {
-    int deleteByPrimaryKey(@Param("examId") String examId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    int deleteByKey(@Param("examId") String examId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     int insert(Exam record);
 
-    Exam selectByPrimaryKey(@Param("examId") String examId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    Exam selectByKey(@Param("examId") String examId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     List<Exam> selectAll();
 

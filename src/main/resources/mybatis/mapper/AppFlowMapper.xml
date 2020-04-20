@@ -6,7 +6,7 @@
     <id column="flow_id" property="flowId" jdbcType="INTEGER" />
     <result column="app_flow_time" property="appFlowTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="map" >
+  <delete id="deleteByKey" parameterType="map" >
     delete from app_flow
     where application_id = #{applicationId,jdbcType=INTEGER}
       and flow_id = #{flowId,jdbcType=INTEGER}
@@ -23,7 +23,7 @@
     where application_id = #{applicationId,jdbcType=INTEGER}
       and flow_id = #{flowId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="map" >
     select application_id, flow_id, app_flow_time
     from app_flow
     where application_id = #{applicationId,jdbcType=INTEGER}

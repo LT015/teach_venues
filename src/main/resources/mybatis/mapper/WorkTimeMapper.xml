@@ -7,7 +7,7 @@
     <result column="worktime_start" property="worktimeStart" jdbcType="TIME" />
     <result column="worktime_end" property="worktimeEnd" jdbcType="TIME" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByKey" parameterType="java.lang.Integer" >
     delete from work_time
     where worktime_id = #{worktimeId,jdbcType=INTEGER}
   </delete>
@@ -24,7 +24,7 @@
       worktime_end = #{worktimeEnd,jdbcType=TIME}
     where worktime_id = #{worktimeId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select worktime_id, worktime_name, worktime_start, worktime_end
     from work_time
     where worktime_id = #{worktimeId,jdbcType=INTEGER}

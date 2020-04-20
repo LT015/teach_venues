@@ -7,7 +7,7 @@
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="map" >
+  <delete id="deleteByKey" parameterType="map" >
     delete from flow
     where flow_id = #{flowId,jdbcType=INTEGER}
       and flow_order = #{flowOrder,jdbcType=INTEGER}
@@ -25,7 +25,7 @@
     where flow_id = #{flowId,jdbcType=INTEGER}
       and flow_order = #{flowOrder,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="map" >
     select flow_id, flow_order, role_id, description
     from flow
     where flow_id = #{flowId,jdbcType=INTEGER}

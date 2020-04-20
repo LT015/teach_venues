@@ -15,7 +15,7 @@
     <result column="activity_num" property="activityNum" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="CHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="map" >
+  <delete id="deleteByKey" parameterType="map" >
     delete from exam
     where exam_id = #{examId,jdbcType=VARCHAR}
       and start_time = #{startTime,jdbcType=TIME}
@@ -48,7 +48,7 @@
       and start_time = #{startTime,jdbcType=TIME}
       and end_time = #{endTime,jdbcType=TIME}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="map" >
     select exam_id, start_time, end_time, exam_name, course_name, year, term, occupation_date, 
     room_name, class_name, activity_num, user_id
     from exam

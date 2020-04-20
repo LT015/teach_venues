@@ -12,7 +12,7 @@
     <result column="activity_num" property="activityNum" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="CHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="map" >
+  <delete id="deleteByKey" parameterType="map" >
     delete from occupation
     where occupation_id = #{occupationId,jdbcType=INTEGER}
       and worktime_id = #{worktimeId,jdbcType=INTEGER}
@@ -39,7 +39,7 @@
     where occupation_id = #{occupationId,jdbcType=INTEGER}
       and worktime_id = #{worktimeId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="map" >
     select occupation_id, worktime_id, occupation_name, year, term, occupation_date, 
     room_name, activity_num, user_id
     from occupation
