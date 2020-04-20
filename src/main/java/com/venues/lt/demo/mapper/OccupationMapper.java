@@ -12,8 +12,6 @@ import org.apache.ibatis.annotations.Param;
 public interface OccupationMapper extends BaseMapper<Occupation> {
     int deleteByKey(@Param("occupationId") Integer occupationId, @Param("worktimeId") Integer worktimeId);
 
-    int insert(Occupation record);
-
     Occupation selectByKey(@Param("occupationId") Integer occupationId, @Param("worktimeId") Integer worktimeId);
 
     List<Occupation> selectAll();

@@ -11,12 +11,7 @@
     delete from work_time
     where worktime_id = #{worktimeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.WorkTime" >
-    insert into work_time (worktime_id, worktime_name, worktime_start, 
-      worktime_end)
-    values (#{worktimeId,jdbcType=INTEGER}, #{worktimeName,jdbcType=VARCHAR}, #{worktimeStart,jdbcType=TIME}, 
-      #{worktimeEnd,jdbcType=TIME})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.WorkTime" >
     update work_time
     set worktime_name = #{worktimeName,jdbcType=VARCHAR},

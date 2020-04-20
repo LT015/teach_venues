@@ -17,16 +17,7 @@
     delete from room
     where room_name = #{roomName,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Room" >
-    insert into room (room_name, floor, door_num, 
-      capacity, status, area, 
-      dept_id, building_id, room_manager, room_type
-      )
-    values (#{roomName,jdbcType=VARCHAR}, #{floor,jdbcType=TINYINT}, #{doorNum,jdbcType=VARCHAR}, 
-      #{capacity,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{area,jdbcType=BIT}, 
-      #{deptId,jdbcType=INTEGER}, #{buildingId,jdbcType=INTEGER}, #{roomManager,jdbcType=CHAR}
-      )
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Room" >
     update room
     set floor = #{floor,jdbcType=TINYINT},

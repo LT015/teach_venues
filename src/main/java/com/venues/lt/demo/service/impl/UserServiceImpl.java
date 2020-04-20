@@ -43,10 +43,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 //            String user = valueOperations.get("first"+userId).toString();
 //            userDto = JSON.parseObject(user,UserDto.class);
 //        }else{
-//            User user = this.selectByPrimaryKey(userId);
+//            User user = this.selectByKey(userId);
 //            valueOperations.set("first"+userId,JSONObject.toJSON(userDto));
 //        }
-        User user = this.selectByPrimaryKey(userId);
+        User user = userMapper.selectByKey(userId);
         return handleUser(user);
 
     }
@@ -151,8 +151,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Async
     public void saveUser(List<User> list){
-        for (int i = 0; i < list.size(); i++){
-            save(list.get(i));
-        }
+        this.insertList(list);
     }
 }

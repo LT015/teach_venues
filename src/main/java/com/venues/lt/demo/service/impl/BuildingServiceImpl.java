@@ -44,17 +44,17 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
     }
 
     public Building queryById(int buildingId) {
-        Building building= this.selectByPrimaryKey(Integer.valueOf(buildingId));
+        Building building= buildingMapper.selectByKey(Integer.valueOf(buildingId));
         return building;
     }
 
     public String queryNameById(int buildingId) {
-        Building building= this.selectByPrimaryKey(Integer.valueOf(buildingId));
+        Building building= buildingMapper.selectByKey(Integer.valueOf(buildingId));
         return  building.getBuildingName();
     }
 
     public Building updateDescription(int buildingId, String description) {
-        Building building= this.selectByPrimaryKey(Integer.valueOf(buildingId));
+        Building building= buildingMapper.selectByKey(Integer.valueOf(buildingId));
         building.setBuildingDescribe(description);
         this.updateByPrimaryKey(building);
         return building;
@@ -144,8 +144,6 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
 
     @Async
     public void saveBuilding(List<Building> list){
-        for (int i = 0; i < list.size(); i++){
-            this.save(list.get(i));
-        }
+        this.insertList(list);
     }
 }

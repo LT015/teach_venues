@@ -13,11 +13,10 @@ public interface AppFlowMapper extends BaseMapper<AppFlow> {
 
     int deleteByKey(@Param("applicationId") Integer applicationId, @Param("flowId") Integer flowId);
 
-    int insert(AppFlow record);
-
     AppFlow selectByKey(@Param("applicationId") Integer applicationId, @Param("flowId") Integer flowId);
 
     List<AppFlow> selectAll();
 
     int updateByPrimaryKey(AppFlow record);
+
 }

@@ -18,16 +18,7 @@
     delete from building
     where building_id = #{buildingId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Building" >
-    insert into building (building_id, building_name, longitude, 
-      latitude, building_describe, building_image, 
-      campus, room_num, Capacity, 
-      building_manager, status)
-    values (#{buildingId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, 
-      #{latitude,jdbcType=DOUBLE}, #{buildingDescribe,jdbcType=VARCHAR}, #{buildingImage,jdbcType=VARCHAR}, 
-      #{campus,jdbcType=VARCHAR}, #{roomNum,jdbcType=INTEGER}, #{capacity,jdbcType=INTEGER}, 
-      #{buildingManager,jdbcType=CHAR})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Building" >
     update building
     set building_name = #{buildingName,jdbcType=VARCHAR},

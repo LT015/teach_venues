@@ -19,16 +19,7 @@
     delete from user
     where user_id = #{userId,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.User" >
-    insert into user (user_id, user_name, password, 
-      id_number, sex, dept_id, user_title, 
-      position, phone, email, 
-      wechat, status)
-    values (#{userId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{idNumber,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{deptId,jdbcType=INTEGER}, #{userTitle,jdbcType=VARCHAR}, 
-      #{position,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, 
-      #{wechat,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.User" >
     update user
     set user_name = #{userName,jdbcType=VARCHAR},

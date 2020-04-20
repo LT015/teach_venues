@@ -1,5 +1,6 @@
 package com.venues.lt.demo;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,6 +16,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 // http://localhost:8080/swagger-ui.html#/
 
 @SpringBootApplication
+@EnableSwagger2
+@MapperScan("com.venues.lt.demo.mapper")
 class LtApplication  {//extends SpringBootServletInitializer
 
     public static void main(String[] args) {

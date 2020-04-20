@@ -11,8 +11,6 @@ import java.util.List;
 public interface WorkTimeMapper extends BaseMapper<WorkTime> {
     int deleteByKey(Integer worktimeId);
 
-    int insert(WorkTime record);
-
     WorkTime selectByKey(Integer worktimeId);
 
     List<WorkTime> selectAll();

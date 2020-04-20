@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.Context;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.File;
 
 @RestController
 @RequestMapping("/email")
+@ApiIgnore
 public class EmailController {
     @Autowired
     private JmsUtil jmsUtil;

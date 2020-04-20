@@ -157,4 +157,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 		mapper.insert(t);
 		return t;
 	}
+
+	public int insertList(List<T> var1) {
+		return mapper.insertList(var1);
+	}
 }

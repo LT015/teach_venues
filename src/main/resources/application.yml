@@ -36,7 +36,7 @@ spring:
   profiles:
     active: dev
   swagger:
-    enable: false
+    enable: true
   mail:
     host: smtp.163.com
     username: lt17694804829@163.com
@@ -71,7 +71,7 @@ spring:
       enabled: true
 
 mybatis:
-  mapper-locations: classpath:mybatis/mapper/*.xml
+  mapper-locations: classpath:/mybatis/mapper/*.xml
 
 pagehelper:
   helperDialect: mysql #指定分页插件使用哪种方言

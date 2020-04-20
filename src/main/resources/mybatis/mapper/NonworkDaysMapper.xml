@@ -8,10 +8,7 @@
     delete from nonwork_days
     where off_day = #{offDay,jdbcType=DATE}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.NonworkDays" >
-    insert into nonwork_days (off_day)
-    values (#{offDay,jdbcType=DATE})
-  </insert>
+
   <select id="selectAll" resultMap="BaseResultMap" >
     select off_day
     from nonwork_days

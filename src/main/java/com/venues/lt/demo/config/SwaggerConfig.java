@@ -34,7 +34,7 @@ public class SwaggerConfig {
     private ApiInfo buildApiInf() {
         return new ApiInfoBuilder()
                 //标题
-                .title("Demo API文档")
+                .title("教学场地资源服务平台 API文档")
 //                .description("更多SpringBoot相关文章请关注：https://blog.csdn.net/RabbitInTheGrass")
 //                .termsOfServiceUrl("https://blog.csdn.net/RabbitInTheGrass/article/details/102026732")
                 //作者

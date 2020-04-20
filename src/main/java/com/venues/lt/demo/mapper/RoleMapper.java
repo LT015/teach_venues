@@ -11,8 +11,6 @@ import java.util.List;
 public interface RoleMapper extends BaseMapper<Role> {
     int deleteByKey(Integer roleId);
 
-    int insert(Role record);
-
     Role selectByKey(Integer roleId);
 
     List<Role> selectAll();

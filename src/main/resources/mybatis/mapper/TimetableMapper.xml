@@ -26,18 +26,7 @@
       and section = #{section,jdbcType=VARCHAR}
       and room_name = #{roomName,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Timetable" >
-    insert into timetable (course_id, course_name, class_name, 
-      weekly, section, room_name, 
-      year, term, student_num, 
-      user_id, user_name, user_title, 
-      week_begin, week_end)
-    values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, 
-      #{weekly,jdbcType=VARCHAR}, #{section,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
-      #{year,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, #{studentNum,jdbcType=TINYINT}, 
-      #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userTitle,jdbcType=VARCHAR}, 
-      #{weekBegin,jdbcType=INTEGER}, #{weekEnd,jdbcType=INTEGER})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Timetable" >
     update timetable
     set year = #{year,jdbcType=INTEGER},

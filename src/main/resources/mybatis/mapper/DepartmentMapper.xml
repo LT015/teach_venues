@@ -15,14 +15,7 @@
     delete from department
     where dept_id = #{deptId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Department" >
-    insert into department (dept_id, dept_name, building_id, 
-      higher_dept_id, leader_id, super_manager, 
-      dept_picture, dept_describe)
-    values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{buildingId,jdbcType=INTEGER}, 
-      #{higherDeptId,jdbcType=INTEGER}, #{leaderId,jdbcType=CHAR}, #{superManager,jdbcType=CHAR}, 
-      #{deptPicture,jdbcType=VARCHAR}, #{deptDescribe,jdbcType=VARCHAR})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Department" >
     update department
     set dept_name = #{deptName,jdbcType=VARCHAR},

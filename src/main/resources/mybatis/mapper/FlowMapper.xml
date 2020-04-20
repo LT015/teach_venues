@@ -12,12 +12,6 @@
     where flow_id = #{flowId,jdbcType=INTEGER}
       and flow_order = #{flowOrder,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Flow" >
-    insert into flow (flow_id, flow_order, role_id, 
-      description)
-    values (#{flowId,jdbcType=INTEGER}, #{flowOrder,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
-      #{description,jdbcType=VARCHAR})
-  </insert>
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Flow" >
     update flow
     set role_id = #{roleId,jdbcType=INTEGER},

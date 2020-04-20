@@ -12,7 +12,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserRoleMapper extends BaseMapper<UserRole> {
     int deleteByKey(@Param("userId") String userId, @Param("roleId") Integer roleId);
 
-    int insert(UserRole record);
-
     List<UserRole> selectAll();
 }

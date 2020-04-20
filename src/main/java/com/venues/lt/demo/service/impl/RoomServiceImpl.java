@@ -58,7 +58,7 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
     }
 
     public RoomDto selectByIdRoomName(String roomName){
-        Room room = this.selectByPrimaryKey(roomName);
+        Room room = roomMapper.selectByKey(roomName);
         return handleRoom(room);
     }
 
@@ -187,9 +187,7 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
 
     @Async
     public void saveRoom(List<Room> list){
-        for (int i = 0; i < list.size(); i++){
-            this.save(list.get(i));
-        }
+        this.insertList(list);
     }
 
 }

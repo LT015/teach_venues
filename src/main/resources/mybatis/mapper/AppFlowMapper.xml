@@ -11,12 +11,7 @@
     where application_id = #{applicationId,jdbcType=INTEGER}
       and flow_id = #{flowId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.AppFlow" >
-    insert into app_flow (application_id, flow_id, app_flow_time
-      )
-    values (#{applicationId,jdbcType=INTEGER}, #{flowId,jdbcType=INTEGER}, #{appFlowTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.AppFlow" >
     update app_flow
     set app_flow_time = #{appFlowTime,jdbcType=TIMESTAMP}

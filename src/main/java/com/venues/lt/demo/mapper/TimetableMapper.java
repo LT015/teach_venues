@@ -12,8 +12,6 @@ public interface TimetableMapper extends BaseMapper<Timetable> {
 
     int deleteByKey(@Param("courseId") String courseId, @Param("courseName") String courseName, @Param("className") String className, @Param("weekly") String weekly, @Param("section") String section, @Param("roomName") String roomName);
 
-    int insert(Timetable record);
-
     Timetable selectByKey(@Param("courseId") String courseId, @Param("courseName") String courseName, @Param("className") String className, @Param("weekly") String weekly, @Param("section") String section, @Param("roomName") String roomName);
 
     List<Timetable> selectAll();

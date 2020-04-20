@@ -21,18 +21,7 @@
       and start_time = #{startTime,jdbcType=TIME}
       and end_time = #{endTime,jdbcType=TIME}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Exam" >
-    insert into exam (exam_id, start_time, end_time, 
-      exam_name, course_name, year, 
-      term, occupation_date, room_name, 
-      class_name, activity_num, user_id
-      )
-    values (#{examId,jdbcType=VARCHAR}, #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, 
-      #{examName,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
-      #{term,jdbcType=INTEGER}, #{occupationDate,jdbcType=DATE}, #{roomName,jdbcType=VARCHAR}, 
-      #{className,jdbcType=VARCHAR}, #{activityNum,jdbcType=INTEGER}, #{userId,jdbcType=CHAR}
-      )
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Exam" >
     update exam
     set exam_name = #{examName,jdbcType=VARCHAR},

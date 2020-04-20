@@ -11,8 +11,6 @@ import java.util.List;
 public interface ApplicationMapper extends BaseMapper<Application> {
     int deleteByKey(Integer application);
 
-    int insert(Application record);
-
     Application selectByKey(Integer application);
 
     List<Application> selectAll();

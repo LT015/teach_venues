@@ -10,12 +10,7 @@
     delete from role
     where role_id = #{roleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Role" >
-    insert into role (role_id, role_name, description
-      )
-    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Role" >
     update role
     set role_name = #{roleName,jdbcType=VARCHAR},

@@ -154,9 +154,7 @@ public class TimeTableServiceImpl  extends BaseServiceImpl<Timetable> implements
 
     @Async
     public void saveTimetable(List<Timetable> list){
-        for (int i = 0; i < list.size(); i++){
-            this.save(list.get(i));
-        }
+        this.insertList(list);
     }
 
 }

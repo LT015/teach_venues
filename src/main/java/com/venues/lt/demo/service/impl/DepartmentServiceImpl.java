@@ -32,7 +32,7 @@ public class DepartmentServiceImpl  extends BaseServiceImpl<Department> implemen
      * @param departmentId
      */
     public void delete(int departmentId) {
-        Department department = this.selectByPrimaryKey(departmentId);
+        Department department = departmentMapper.selectByKey(departmentId);
         this.delete(department);
     }
 
@@ -41,12 +41,12 @@ public class DepartmentServiceImpl  extends BaseServiceImpl<Department> implemen
     }
 
     public Department queryById(int id) {
-        return this.selectByPrimaryKey(id);
+        return departmentMapper.selectByKey(id);
     }
 
 
     public Department updateDescription(int id, String description) {
-        Department department = this.selectByPrimaryKey(id);
+        Department department = departmentMapper.selectByKey(id);
 
         if (department != null) {
             department.setDeptDescribe(description);
@@ -60,7 +60,7 @@ public class DepartmentServiceImpl  extends BaseServiceImpl<Department> implemen
     }
 
     public Department updateName(int id, String name) {
-        Department department = this.selectByPrimaryKey(id);
+        Department department = departmentMapper.selectByKey(id);
 
         if (department != null) {
             department.setDeptName(name);
@@ -74,7 +74,7 @@ public class DepartmentServiceImpl  extends BaseServiceImpl<Department> implemen
     }
 
     public Department updateHigherDepartment(int id, int higher) {
-        Department department = this.selectByPrimaryKey(id);
+        Department department = departmentMapper.selectByKey(id);
 
         if (department != null) {
             department.setHigherDeptId(higher);
@@ -88,7 +88,7 @@ public class DepartmentServiceImpl  extends BaseServiceImpl<Department> implemen
     }
 
     public Department updateBuildingId(int id, int buildingId) {
-        Department department = this.selectByPrimaryKey(id);
+        Department department = departmentMapper.selectByKey(id);
 
         if (department != null) {
             department.setBuildingId(buildingId);

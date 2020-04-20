@@ -21,18 +21,7 @@
     delete from application
     where application = #{application,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Application" >
-    insert into application (application, room_name, year, 
-      term, date, time_begin, time_end, 
-      room_target1, room_target2, room_target3, 
-      activity, notice_state, application_user, 
-      application_dept)
-    values (#{application,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
-      #{term,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{timeBegin,jdbcType=TIME}, #{timeEnd,jdbcType=TIME}, 
-      #{roomTarget1,jdbcType=VARCHAR}, #{roomTarget2,jdbcType=VARCHAR}, #{roomTarget3,jdbcType=VARCHAR}, 
-      #{activity,jdbcType=VARCHAR}, #{noticeState,jdbcType=INTEGER}, #{applicationUser,jdbcType=CHAR}, 
-      #{applicationDept,jdbcType=VARCHAR})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Application" >
     update application
     set room_name = #{roomName,jdbcType=VARCHAR},

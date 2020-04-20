@@ -17,16 +17,7 @@
     where occupation_id = #{occupationId,jdbcType=INTEGER}
       and worktime_id = #{worktimeId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.venues.lt.demo.model.Occupation" >
-    insert into occupation (occupation_id, worktime_id, occupation_name, 
-      year, term, occupation_date, 
-      room_name, activity_num, user_id
-      )
-    values (#{occupationId,jdbcType=INTEGER}, #{worktimeId,jdbcType=INTEGER}, #{occupationName,jdbcType=VARCHAR}, 
-      #{year,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, #{occupationDate,jdbcType=DATE}, 
-      #{roomName,jdbcType=VARCHAR}, #{activityNum,jdbcType=INTEGER}, #{userId,jdbcType=CHAR}
-      )
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Occupation" >
     update occupation
     set occupation_name = #{occupationName,jdbcType=VARCHAR},

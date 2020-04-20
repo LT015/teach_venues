@@ -11,8 +11,6 @@ import java.util.List;
 public interface DepartmentMapper extends BaseMapper<Department> {
     int deleteByKey(Integer deptId);
 
-    int insert(Department record);
-
     Department selectByKey(Integer deptId);
 
     List<Department> selectAll();

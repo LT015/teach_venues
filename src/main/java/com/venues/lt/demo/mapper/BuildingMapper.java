@@ -11,8 +11,6 @@ import java.util.List;
 public interface BuildingMapper extends BaseMapper<Building> {
     int deleteByKey(Integer buildingId);
 
-    int insert(Building record);
-
     Building selectByKey(Integer buildingId);
 
     List<Building> selectAll();

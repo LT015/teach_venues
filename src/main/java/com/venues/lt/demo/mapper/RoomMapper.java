@@ -11,8 +11,6 @@ import java.util.List;
 public interface RoomMapper extends BaseMapper<Room> {
     int deleteByKey(String roomName);
 
-    int insert(Room record);
-
     Room selectByKey(String roomName);
 
     List<Room> selectAll();
