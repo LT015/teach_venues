@@ -40,22 +40,21 @@ public class LoginController {
     @PostMapping("/login/pwd")
     @ResponseBody
     @ApiOperation(value = "登录", notes = "根据用户名和密码登录")
-    public ResponseData login(HttpServletRequest request,HttpServletResponse response,@RequestParam("userId") String userId, @RequestParam("password") String password) {
+    public ResponseData login(@RequestParam("userId") String userId, @RequestParam("password") String password) {
         if (loginService.checkUser(userId, password)) {
 
-            return ResponseData.success(  userService.getUserInfo(userId));
+            return ResponseData.success(userService.getUserInfo(userId));
         }
 
         return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
     }
     /**
      * 注销登录
-     * @param session
      * @return
      */
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public String logout(HttpSession session){
+    public ResponseData logout(){
 
-        return "logout";
+        return ResponseData.success();
     }
 }
