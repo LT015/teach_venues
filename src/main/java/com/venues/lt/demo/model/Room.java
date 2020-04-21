@@ -27,4 +27,7 @@ public class Room {
 
     private String roomType;
 
+    // 是否是常用教室 0否 1是
+    private Integer use;
+
 }

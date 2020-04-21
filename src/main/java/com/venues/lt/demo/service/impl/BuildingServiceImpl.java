@@ -42,7 +42,15 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
     public List<Building> list() {
         return this.selectAll().list();
     }
-
+    public List<Building> getListByStatus(Integer status) {
+        String string = "正常使用";
+        if(status == 1){
+            string = "已停用";
+        }else if(status == 2){
+            string = "已拆除";
+        }
+        return this.creatQuery().andEqualTo("status",string).list();
+    }
     public Building queryById(int buildingId) {
         Building building= buildingMapper.selectByKey(Integer.valueOf(buildingId));
         return building;
@@ -56,6 +64,11 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
     public Building updateDescription(int buildingId, String description) {
         Building building= buildingMapper.selectByKey(Integer.valueOf(buildingId));
         building.setBuildingDescribe(description);
+        this.updateByPrimaryKey(building);
+        return building;
+    }
+
+    public Building updateBuilding(Building building) {
         this.updateByPrimaryKey(building);
         return building;
     }

@@ -14,11 +14,15 @@ public interface BuildingService extends BaseService<Building> {
 
     List<Building> list();
 
+    List<Building> getListByStatus(Integer status);
+
     Building queryById(int buildingId) ;
 
     String queryNameById(int buildingId) ;
 
     Building updateDescription(int buildingId, String description);
+
+    Building updateBuilding(Building building);
 
     List<Building> getBuildingByName(String name);
 

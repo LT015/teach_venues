@@ -27,6 +27,8 @@ public class Building {
 
     private String buildingManager;
 
+    //正常使用 停用 已拆除
     private String status;
+
 
 }

@@ -3,10 +3,13 @@ package com.venues.lt.demo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.venues.lt.demo.mapper.UserMapper;
+import com.venues.lt.demo.mapper.UserRoleMapper;
 import com.venues.lt.demo.model.Department;
 import com.venues.lt.demo.model.User;
+import com.venues.lt.demo.model.UserRole;
 import com.venues.lt.demo.model.dto.UserDto;
 import com.venues.lt.demo.service.DepartmentService;
+import com.venues.lt.demo.service.UserRoleService;
 import com.venues.lt.demo.service.UserService;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
 import com.venues.lt.framework.utils.ExcelUtil;
@@ -27,6 +30,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -78,6 +84,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return 1;
     }
 
+    public User updateUser(User user) {
+        this.updateByPrimaryKey(user);
+        return user;
+    }
+
     public UserDto handleUser(User user) {
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());
@@ -91,6 +102,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         userDto.setEmail(user.getEmail());
         userDto.setWechat(user.getWechat());
         userDto.setStatus(user.getStatus());
+        List<UserRole> userRoleList = userRoleService.creatQuery()
+                .andEqualTo("user_id",user.getUserId())
+                .setOrderByClause("role_id ASC")
+                .list();
+
+        userDto.setRole(userRoleList.get(0).getRoleId());
+        if(userRoleList.size() > 1){
+            userDto.setIsManager(userRoleList.get(1).getRoleId());
+        }else{
+            userDto.setIsManager(0);
+        }
+
         return userDto;
     }
 

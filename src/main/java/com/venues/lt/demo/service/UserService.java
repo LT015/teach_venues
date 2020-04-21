@@ -21,4 +21,6 @@ public interface UserService extends BaseService<User> {
 
     int uploadUser( MultipartFile file);
 
+    User updateUser(User user);
+
 }

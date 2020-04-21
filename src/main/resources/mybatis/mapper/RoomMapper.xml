@@ -12,6 +12,7 @@
     <result column="building_id" property="buildingId" jdbcType="INTEGER" />
     <result column="room_manager" property="roomManager" jdbcType="CHAR" />
     <result column="room_type" property="roomType" jdbcType="VARCHAR" />
+    <result column="use" property="use" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByKey" parameterType="java.lang.String" >
     delete from room
@@ -29,17 +30,32 @@
       building_id = #{buildingId,jdbcType=INTEGER},
       room_manager = #{roomManager,jdbcType=CHAR},
       room_type = #{roomType,jdbcType=VARCHAR},
+      use = #{use,jdbcType=INTEGER}
     where room_name = #{roomName,jdbcType=VARCHAR}
   </update>
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
-    room_manager, room_type
+    room_manager, room_type, use
     from room
     where room_name = #{roomName,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
-    room_manager, room_type
+    room_manager, room_type, use
     from room
+  </select>
+  <select id="getFloorByBuildingId" resultType="java.lang.Integer" >
+    select floor
+    from room
+    where building_id = #{buildingId,jdbcType=INTEGER}
+    GROUP BY floor
+    ORDER BY floor
+  </select>
+  <select id="getRoomNameByFloorAndBuildingId" resultType="java.lang.String" >
+    select room_name
+    from room
+    where building_id = #{buildingId,jdbcType=INTEGER}
+    and floor = #{floor,jdbcType=INTEGER}
+    ORDER BY room_name
   </select>
 </mapper>

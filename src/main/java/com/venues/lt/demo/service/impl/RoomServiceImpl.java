@@ -7,6 +7,7 @@ import com.venues.lt.demo.mapper.TimetableMapper;
 import com.venues.lt.demo.model.Building;
 import com.venues.lt.demo.model.Department;
 import com.venues.lt.demo.model.Room;
+import com.venues.lt.demo.model.dto.FloorAndRoom;
 import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.demo.service.*;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
@@ -62,10 +63,6 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
         return handleRoom(room);
     }
 
-    public void updateRoom(Room room){
-        this.updateByPrimaryKey(room);
-    }
-
     public int create(Room room){
         this.save(room);
         return 1;
@@ -89,6 +86,27 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
         }
 
         return 1;
+    }
+
+    public List<FloorAndRoom> getFloorAndRoom(Integer buildingId){
+        List<FloorAndRoom> list = new ArrayList<>();
+        List<Integer> floorList = roomMapper.getFloorByBuildingId(buildingId);
+        if(floorList == null || floorList.size() == 0){
+            return null;
+        }
+        for(int i =0; i < floorList.size(); i++){
+            FloorAndRoom floorAndRoom = new FloorAndRoom();
+            List<String> roomNameList = roomMapper.getRoomNameByFloorAndBuildingId(floorList.get(i),buildingId);
+            floorAndRoom.setFloor(floorList.get(i));
+            floorAndRoom.setRoomName(roomNameList);
+            list.add(floorAndRoom);
+        }
+        return list;
+    }
+
+    public Room updateRoom(Room room) {
+        this.updateByPrimaryKey(room);
+        return room;
     }
 
     private RoomDto handleRoom(Room room) {
@@ -184,6 +202,7 @@ public class RoomServiceImpl  extends BaseServiceImpl<Room> implements RoomServi
                 room.setRoomManager(stringList.get(indexList.get(8)));
             }
             room.setRoomType(stringList.get(indexList.get(9)));
+            room.setUse(0);
             roomList.add(room);
         }
         saveRoom(roomList);

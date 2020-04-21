@@ -26,4 +26,6 @@ public class RoomDto {
 
     private String roomManager;
 
+    private Integer use;
+
 }

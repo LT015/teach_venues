@@ -1,5 +1,6 @@
 package com.venues.lt.demo.controller;
 import com.venues.lt.demo.model.Room;
+import com.venues.lt.demo.model.dto.FloorAndRoom;
 import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.demo.service.RoomService;
 import com.venues.lt.demo.service.impl.RoomServiceImpl;
@@ -45,7 +46,7 @@ public class RoomController {
         if(result == 1){
             return ResponseData.success();
         }else{
-            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.ADD_FAIL);
         }
     }
 
@@ -58,8 +59,33 @@ public class RoomController {
         if(result == 1){
             return ResponseData.success();
         }else{
-            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/buildingId/{buildingId:.+}")
+    @ApiOperation(value = "根据建筑物id获取建筑物包含的场地名称", notes = "根据建筑物id获取建筑物拥有的楼层和每个楼层的场地信息")
+    public ResponseData list(@PathVariable Integer buildingId) {
+        List<FloorAndRoom> list = roomService.getFloorAndRoom(buildingId);
+        if(list!=null){
+            return ResponseData.success(list);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
+        }
+
+    }
+
+    @ResponseBody
+    @PostMapping("/update")
+    @ApiOperation(value = "更新场地信息", notes = "更新场地信息")
+    public ResponseData updateBuilding(@RequestBody Room room) {
+        if(roomService.updateRoom(room) != null){
+            return ResponseData.success();
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
+        }
+
     }
 
 }

@@ -30,4 +30,9 @@ public class UserDto {
 
     private Integer status;
 
+    private Integer role;
+
+    // 0不是 5是管理 6是超级
+    private Integer isManager;
+
 }

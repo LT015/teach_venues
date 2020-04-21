@@ -1,6 +1,7 @@
 package com.venues.lt.demo.controller;
 
 
+import com.venues.lt.demo.model.User;
 import com.venues.lt.demo.model.dto.UserDto;
 import com.venues.lt.demo.service.UserService;
 import com.venues.lt.demo.util.ResponseCode;
@@ -97,6 +98,17 @@ public class UserController {
             return ResponseData.success();
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/update")
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+    public ResponseData updateBuilding(@RequestBody User user) {
+        if(userService.updateUser(user) != null){
+            return ResponseData.success();
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
         }
     }
 }

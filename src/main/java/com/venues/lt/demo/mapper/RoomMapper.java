@@ -16,4 +16,10 @@ public interface RoomMapper extends BaseMapper<Room> {
     List<Room> selectAll();
 
     int updateByPrimaryKey(Room record);
+
+    //根据建筑物id得到楼层
+    List<Integer> getFloorByBuildingId(Integer buildingId);
+
+    //根据建筑物id和楼层得到教室名
+    List<String> getRoomNameByFloorAndBuildingId(Integer floor,Integer buildingId);
 }
