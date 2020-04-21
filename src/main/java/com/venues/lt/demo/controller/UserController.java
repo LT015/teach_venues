@@ -103,7 +103,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/update")
-    @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+    @ApiOperation(value = "更新用户基本信息", notes = "更新用户基本信息 不包含角色")
     public ResponseData updateBuilding(@RequestBody User user) {
         if(userService.updateUser(user) != null){
             return ResponseData.success();
@@ -111,4 +111,18 @@ public class UserController {
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
         }
     }
+
+    @ResponseBody
+    @PostMapping("/update/role/{userId:.+}/{roleId:.+}")
+    @ApiOperation(value = "修改用户角色/权限", notes = "修改用户角色/权限  1-4是角色 5是设为管理员 7是取消授权管理员")
+    public ResponseData updateDescription(@PathVariable String userId, @PathVariable int roleId) {
+        UserDto userDto = userService.updateRole(userId, roleId);
+        if(userDto != null){
+            return ResponseData.success(userDto);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
+        }
+
+    }
+
 }

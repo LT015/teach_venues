@@ -89,6 +89,34 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return user;
     }
 
+    public UserDto updateRole(String userId,Integer roleId) {
+        User user = userMapper.selectByKey(userId);
+        if(roleId < 5){//修改用户角色
+            UserRole userRole = userRoleService.selectByUserId(userId).get(0);
+//            UserRole userRole = userRoleService.creatQuery()
+//                    .andEqualTo("user_id",user.getUserId())
+//                    .andLessThan("role_id",5)
+//                    .list().get(0);
+            userRoleService.delete(userRole);
+            userRole.setRoleId(roleId);
+            userRoleService.save(userRole);
+
+        }else if(roleId == 5) {//修改权限 5为设置管理员 7为取消管理员
+            UserRole userRole = new UserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(roleId);
+            userRoleService.save(userRole);
+        }else if(roleId == 7) {//修改权限
+            UserRole userRole = userRoleService.selectByUserId(userId).get(1);
+//            UserRole userRole = userRoleService.creatQuery()
+//                    .andEqualTo("user_id",user.getUserId())
+//                    .andGreaterThan("role_id",4)//5 或6 管理员 所以此处选择大于4
+//                    .list().get(0);
+            userRoleService.delete(userRole);
+        }
+        return handleUser(user);
+    }
+
     public UserDto handleUser(User user) {
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());

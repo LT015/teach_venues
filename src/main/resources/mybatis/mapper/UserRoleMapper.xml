@@ -15,4 +15,10 @@
     select user_id, role_id
     from user_role
   </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" >
+    select user_id, role_id
+    from user_role
+    where user_id =  #{userId,jdbcType=CHAR}
+    order by role_id ASC
+  </select>
 </mapper>

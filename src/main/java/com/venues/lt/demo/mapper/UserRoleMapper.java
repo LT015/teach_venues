@@ -13,4 +13,6 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
     int deleteByKey(@Param("userId") String userId, @Param("roleId") Integer roleId);
 
     List<UserRole> selectAll();
+
+    List<UserRole> selectByUserId(String userId);
 }

@@ -23,4 +23,6 @@ public interface UserService extends BaseService<User> {
 
     User updateUser(User user);
 
+    UserDto updateRole(String userId,Integer roleId);
+
 }
