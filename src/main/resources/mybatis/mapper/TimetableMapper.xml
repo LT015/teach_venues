@@ -23,13 +23,13 @@
       and course_name = #{courseName,jdbcType=VARCHAR}
       and class_name = #{className,jdbcType=VARCHAR}
       and weekly = #{weekly,jdbcType=VARCHAR}
-      and section = #{section,jdbcType=VARCHAR}
+      and `section` = #{section,jdbcType=VARCHAR}
       and room_name = #{roomName,jdbcType=VARCHAR}
   </delete>
 
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Timetable" >
     update timetable
-    set year = #{year,jdbcType=INTEGER},
+    set `year` = #{year,jdbcType=INTEGER},
       term = #{term,jdbcType=INTEGER},
       student_num = #{studentNum,jdbcType=TINYINT},
       user_id = #{userId,jdbcType=VARCHAR},
@@ -41,11 +41,11 @@
       and course_name = #{courseName,jdbcType=VARCHAR}
       and class_name = #{className,jdbcType=VARCHAR}
       and weekly = #{weekly,jdbcType=VARCHAR}
-      and section = #{section,jdbcType=VARCHAR}
+      and `section` = #{section,jdbcType=VARCHAR}
       and room_name = #{roomName,jdbcType=VARCHAR}
   </update>
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="map" >
-    select course_id, course_name, class_name, weekly, section, room_name, year, term, 
+    select course_id, course_name, class_name, weekly, `section`, room_name, `year`, term,
     student_num, user_id, user_name, user_title, week_begin, week_end
     from timetable
     where course_id = #{courseId,jdbcType=VARCHAR}
@@ -56,8 +56,15 @@
       and room_name = #{roomName,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select course_id, course_name, class_name, weekly, section, room_name, year, term, 
+    select course_id, course_name, class_name, weekly, `section`, room_name, `year`, term,
     student_num, user_id, user_name, user_title, week_begin, week_end
     from timetable
+  </select>
+  <select id="selectByName" resultType="com.venues.lt.demo.model.dto.TimetableDto" >
+    select course_id courseId, course_name courseName, weekly, `section`,
+    room_name roomName, user_name userName
+    from timetable
+    where room_name = #{roomName,jdbcType=VARCHAR}
+    group by course_id, course_name, weekly, `section`, room_name, user_name;
   </select>
 </mapper>

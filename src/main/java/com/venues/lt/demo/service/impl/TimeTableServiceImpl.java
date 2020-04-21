@@ -2,21 +2,17 @@ package com.venues.lt.demo.service.impl;
 
 import com.venues.lt.demo.mapper.TimetableMapper;
 import com.venues.lt.demo.model.Timetable;
-import com.venues.lt.demo.model.dto.TimeTableDto;
+import com.venues.lt.demo.model.dto.TimetableDto;
 import com.venues.lt.demo.service.TimeTableService;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
 import com.venues.lt.framework.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,48 +21,39 @@ public class TimeTableServiceImpl  extends BaseServiceImpl<Timetable> implements
     @Autowired
     TimetableMapper timetableMapper;
 
-    public List<TimeTableDto> list(String roomName) {
-        List<Timetable> list = this.creatQuery().andEqualTo("roomName", roomName)
-                .andEqualTo("year",2019)
-                .andEqualTo("term",2)
-                .setOrderByClause("section desc")
-                .setDistinct(true)
-                .list();
-        return list.stream().map(this::handleTimeTable).collect(Collectors.toList());
+    public List<TimetableDto> list(String roomName) {
+        List<TimetableDto> list = timetableMapper.selectByName(roomName);
+//        List<Timetable> list = this.creatQuery().andEqualTo("roomName", roomName)
+//                .andEqualTo("year",2019)
+//                .andEqualTo("term",2)
+//                .setOrderByClause("section desc")
+//                .setDistinct(true)
+//                .list();
+        return list.stream().map(this::handleTimeTableDto).collect(Collectors.toList());
     }
 
     public int uploadTimetable( MultipartFile file) {
-//        String name = file.getOriginalFilename();
-//        if(name.length() < 6 || !name.substring(name.length()-5).equals(".xlsx")){
-//            List<Object> li = new ArrayList<>();
-//            li.add("文件格式错误");
-//            return 0;
-//        }
-//        List<List<String>> list = null;
-//        try {
-//            list = ExcelUtil.excelToObjectList(file.getInputStream());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        if(list != null){
-//            parseTimetable(list);
-//        }
+        String name = file.getOriginalFilename();
+        if(name.length() < 6 || !name.substring(name.length()-5).equals(".xls")){
+            List<Object> li = new ArrayList<>();
+            li.add("文件格式错误");
+            return 0;
+        }
         List<List<String>> list = null;
-        list = ExcelUtil.excelToObjectList(null);
+        try {
+            list = ExcelUtil.excelToObjectList(file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(list != null){
+            parseTimetable(list);
+        }
         parseTimetable(list);
         return 1;
     }
 
-    public TimeTableDto handleTimeTable(Timetable timetable) {
-        TimeTableDto timeTableDto = new TimeTableDto();
-        timeTableDto.setCourseId(timetable.getCourseId());
-        timeTableDto.setCourseName(timetable.getCourseName());
-        timeTableDto.setClassName(timetable.getClassName());
-        timeTableDto.setWeekly(timetable.getWeekly());
-        timeTableDto.setSection(timetable.getSection());
-        timeTableDto.setRoomName(timetable.getRoomName());
-        timeTableDto.setUserName(timetable.getUserName());
-        String section = timetable.getSection();
+        private TimetableDto handleTimeTableDto(TimetableDto timetableDto) {
+        String section = timetableDto.getSection();
         section = section.replace(" ", "");//例如：二[1-2节]单
         String[] strings = section.split("\\["); //得到 0：二 1：1-2节]单
         int day = 0;
@@ -86,16 +73,24 @@ public class TimeTableServiceImpl  extends BaseServiceImpl<Timetable> implements
         else if(strings[0].equals("七")){
             day = 7;
         }
-        timeTableDto.setWeekday(day);
+        timetableDto.setWeekday(day);
         String[] startString = strings[1].split("-");//继续上面的例子   0是“1”  1是“2节]单”
         int startNum = Integer.valueOf(startString[0]);
-        String[] endString = startString[1].split("节");//继续上面的例子   0是“2”  1是“]单”
+        String[] endString = startString[1].split("节]");//继续上面的例子   0是“2”  1是“单”
         int endNum = Integer.valueOf(endString[0]);
-        timeTableDto.setStartNum(startNum);
-        timeTableDto.setEndNum(endNum);
-        return timeTableDto;
+        timetableDto.setStartNum(startNum);
+        timetableDto.setEndNum(endNum);
+        if (endString.length > 1){
+            if(endString[1].equals("单")){
+                timetableDto.setFlag(1);
+            }else if(endString[1].equals("双")){
+                timetableDto.setFlag(2);
+            }
+        }else{
+            timetableDto.setFlag(0);
+        }
+        return timetableDto;
     }
-
     public void parseTimetable(List<List<String>> list){
         List<Integer> indexList = new ArrayList<>();
         for(int i = 0; i < 14 ;i++){

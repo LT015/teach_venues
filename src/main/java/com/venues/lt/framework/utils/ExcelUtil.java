@@ -22,12 +22,12 @@ public class ExcelUtil {
         List<List<String>> resultList = new ArrayList<>();
         List<Object> list = new ArrayList<>();
         String cellData = null;
-        String filePath = "D:\\课表信息.xls";
+//        String filePath = "D:\\课表信息.xls";
         Workbook workbook = null;
-        workbook = readExcel(filePath);
+//        workbook = readExcel(filePath);
         try {
-            //workbook = WorkbookFactory.create(inputStream);
-            //inputStream.close();
+            workbook = WorkbookFactory.create(inputStream);
+            inputStream.close();
             //工作表对象
             Sheet sheet = workbook.getSheetAt(0);
             //总行数

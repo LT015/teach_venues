@@ -1,13 +1,10 @@
 package com.venues.lt.demo.controller;
 
-import com.venues.lt.demo.model.Timetable;
-import com.venues.lt.demo.model.dto.TimeTableDto;
+import com.venues.lt.demo.model.dto.TimetableDto;
 import com.venues.lt.demo.service.TimeTableService;
-import com.venues.lt.demo.service.impl.TimeTableServiceImpl;
 import com.venues.lt.demo.util.ResponseCode;
 import com.venues.lt.demo.util.ResponseData;
 import com.venues.lt.demo.util.ResponseMsg;
-import com.venues.lt.framework.utils.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,10 +27,17 @@ public class TimeTableController {
     @GetMapping(value = "/roomname/{roomname:.+}")
     @ApiOperation(value = "获取课表", notes = "根据用户id获教室名称获取课表")
     public ResponseData listByRoomName(@PathVariable String roomname) throws UnsupportedEncodingException {
-        int result = timeTableService.uploadTimetable(null);
         roomname = URLDecoder.decode(roomname, "utf-8");
-        List<TimeTableDto> list = timeTableService.list(roomname);
+        List<TimetableDto> list = timeTableService.list(roomname);
         return ResponseData.success(list);
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = "/no")
+    @ApiOperation(value = "查看课表数据类型", notes = "此接口无实际作用 仅用来查看课表的返回数据格式")
+    public TimetableDto no(){
+
+        return new TimetableDto();
     }
 
     @ResponseBody

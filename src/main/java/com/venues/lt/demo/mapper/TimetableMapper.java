@@ -3,6 +3,7 @@ package com.venues.lt.demo.mapper;
 import com.venues.lt.demo.model.Timetable;
 import java.util.List;
 
+import com.venues.lt.demo.model.dto.TimetableDto;
 import com.venues.lt.framework.general.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,4 +18,6 @@ public interface TimetableMapper extends BaseMapper<Timetable> {
     List<Timetable> selectAll();
 
     int updateByPrimaryKey(Timetable record);
+
+    List <TimetableDto> selectByName(String roomName);
 }
