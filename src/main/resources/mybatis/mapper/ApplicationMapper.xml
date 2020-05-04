@@ -7,15 +7,19 @@
     <result column="year" property="year" jdbcType="INTEGER" />
     <result column="term" property="term" jdbcType="INTEGER" />
     <result column="date" property="date" jdbcType="DATE" />
-    <result column="time_begin" property="timeBegin" jdbcType="TIME" />
-    <result column="time_end" property="timeEnd" jdbcType="TIME" />
+    <result column="time_begin" property="timeBegin" jdbcType="INTEGER" />
+    <result column="time_end" property="timeEnd" jdbcType="INTEGER" />
     <result column="room_target1" property="roomTarget1" jdbcType="VARCHAR" />
     <result column="room_target2" property="roomTarget2" jdbcType="VARCHAR" />
     <result column="room_target3" property="roomTarget3" jdbcType="VARCHAR" />
     <result column="activity" property="activity" jdbcType="VARCHAR" />
-    <result column="notice_state" property="noticeState" jdbcType="INTEGER" />
-    <result column="application_user" property="applicationUser" jdbcType="CHAR" />
-    <result column="application_dept" property="applicationDept" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="verify1" property="verify1" jdbcType="CHAR" />
+    <result column="verify2" property="verify2" jdbcType="CHAR" />
+    <result column="execute" property="execute" jdbcType="CHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByKey" parameterType="java.lang.Integer" >
     delete from application
@@ -25,29 +29,39 @@
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Application" >
     update application
     set room_name = #{roomName,jdbcType=VARCHAR},
-      year = #{year,jdbcType=INTEGER},
+      `year` = #{year,jdbcType=INTEGER},
       term = #{term,jdbcType=INTEGER},
-      date = #{date,jdbcType=DATE},
-      time_begin = #{timeBegin,jdbcType=TIME},
-      time_end = #{timeEnd,jdbcType=TIME},
+      `date` = #{date,jdbcType=DATE},
+      time_begin = #{timeBegin,jdbcType=INTEGER},
+      time_end = #{timeEnd,jdbcType=INTEGER},
       room_target1 = #{roomTarget1,jdbcType=VARCHAR},
       room_target2 = #{roomTarget2,jdbcType=VARCHAR},
       room_target3 = #{roomTarget3,jdbcType=VARCHAR},
       activity = #{activity,jdbcType=VARCHAR},
-      notice_state = #{noticeState,jdbcType=INTEGER},
-      application_user = #{applicationUser,jdbcType=CHAR},
-      application_dept = #{applicationDept,jdbcType=VARCHAR}
+      state = #{noticeState,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=CHAR},
+      dept_id = #{dept_id,jdbcType=VARCHAR},
+      verify1 = #{verify1,jdbcType=CHAR},
+      verify2 = #{verify2,jdbcType=CHAR},
+      `execute` = #{execute,jdbcType=CHAR},
+      reason = #{reason,jdbcType=VARCHAR}
     where application = #{application,jdbcType=INTEGER}
   </update>
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select application, room_name, year, term, date, time_begin, time_end, room_target1, 
-    room_target2, room_target3, activity, notice_state, application_user, application_dept
+    select application, room_name, `year`, term, `date`, time_begin, time_end, room_target1,
+    room_target2, room_target3, activity, state, user_id, dept_id, verify1, verify2, `execute`, reason
     from application
     where application = #{application,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select application, room_name, year, term, date, time_begin, time_end, room_target1, 
-    room_target2, room_target3, activity, notice_state, application_user, application_dept
+    select application, room_name, `year`, term, `date`, time_begin, time_end, room_target1,
+    room_target2, room_target3, activity, state, user_id, dept_id, verify1, verify2, `execute`, reason
     from application
+  </select>
+  <select id="selectByRoomName" resultMap="BaseResultMap" >
+    select application, room_name, `year`, term, `date`, time_begin, time_end, room_target1,
+    room_target2, room_target3, activity, state, user_id, dept_id, verify1, verify2, `execute`, reason
+    from application
+    where room_name =  #{roomName,jdbcType=VARCHAR}
   </select>
 </mapper>

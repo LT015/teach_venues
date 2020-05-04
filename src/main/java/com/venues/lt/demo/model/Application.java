@@ -18,9 +18,9 @@ public class Application {
 
     private Date date;
 
-    private Date timeBegin;
+    private Integer timeBegin;
 
-    private Date timeEnd;
+    private Integer timeEnd;
 
     private String roomTarget1;
 
@@ -30,10 +30,18 @@ public class Application {
 
     private String activity;
 
-    private Integer noticeState;
+    private Integer state;
 
-    private String applicationUser;
+    private String userId;
 
-    private String applicationDept;
+    private String deptId;
+
+    private String verify1;
+
+    private String verify2;
+
+    private String execute;
+
+    private String reason;
 
 }

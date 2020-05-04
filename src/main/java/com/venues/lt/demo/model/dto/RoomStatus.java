@@ -4,12 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class RoomDto {
+public class RoomStatus {
     private String roomName;
 
     private Integer floor;
-
-    private String doorNum;
 
     private Integer capacity;
 
@@ -17,17 +15,11 @@ public class RoomDto {
 
     private Integer area;
 
-    private Integer deptId;
-
     private String deptName;
-
-    private Integer buildingId;
 
     private String buildingName;
 
-    private String roomManager;
-
-    @ApiModelProperty(value="是否常用")
-    private Integer use;
+    @ApiModelProperty(value="如果被管理员占用 会有占用id 便于取消")
+    private Integer Occupation;
 
 }

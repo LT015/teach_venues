@@ -10,11 +10,13 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface OccupationMapper extends BaseMapper<Occupation> {
-    int deleteByKey(@Param("occupationId") Integer occupationId, @Param("worktimeId") Integer worktimeId);
+    int deleteByKey(@Param("occupationId") Integer occupationId);
 
-    Occupation selectByKey(@Param("occupationId") Integer occupationId, @Param("worktimeId") Integer worktimeId);
+    Occupation selectByKey(@Param("occupationId") Integer occupationId);
 
     List<Occupation> selectAll();
 
     int updateByPrimaryKey(Occupation record);
+
+    List<Occupation> selectByRoomName(String roomName);
 }

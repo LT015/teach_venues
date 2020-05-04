@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-class LtApplication  {//extends SpringBootServletInitializer
+public class LtApplication  {//extends SpringBootServletInitializer
 
     public static void main(String[] args) {
         SpringApplication.run(LtApplication.class, args);

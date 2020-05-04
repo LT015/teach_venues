@@ -16,4 +16,7 @@ public interface ApplicationMapper extends BaseMapper<Application> {
     List<Application> selectAll();
 
     int updateByPrimaryKey(Application record);
+
+    List<Application> selectByRoomName(String roomName);
+
 }

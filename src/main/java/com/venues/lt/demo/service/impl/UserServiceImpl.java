@@ -130,10 +130,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         userDto.setEmail(user.getEmail());
         userDto.setWechat(user.getWechat());
         userDto.setStatus(user.getStatus());
-        List<UserRole> userRoleList = userRoleService.creatQuery()
-                .andEqualTo("user_id",user.getUserId())
-                .setOrderByClause("role_id ASC")
-                .list();
+        List<UserRole> userRoleList = userRoleService.selectByUserId(user.getUserId());
 
         userDto.setRole(userRoleList.get(0).getRoleId());
         if(userRoleList.size() > 1){

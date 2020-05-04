@@ -4,7 +4,8 @@
 
 
     <!-- 通过property标签,来存放key-value数据,便于后面的动态获取,提高程序的灵活性 -->
-    <property name="log.path" value="D:/SeverProject/demo/myLog" />
+    <!--<property name="log.path" value="D:/SeverProject/demo/myLog" />-->
+    <property name="log.path" value="c:/venues/myLog" />
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />

@@ -3,7 +3,7 @@
 <mapper namespace="com.venues.lt.demo.mapper.OccupationMapper" >
   <resultMap id="BaseResultMap" type="com.venues.lt.demo.model.Occupation" >
     <id column="occupation_id" property="occupationId" jdbcType="INTEGER" />
-    <id column="worktime_id" property="worktimeId" jdbcType="INTEGER" />
+    <result column="worktime_id" property="worktimeId" jdbcType="INTEGER" />
     <result column="occupation_name" property="occupationName" jdbcType="VARCHAR" />
     <result column="year" property="year" jdbcType="INTEGER" />
     <result column="term" property="term" jdbcType="INTEGER" />
@@ -11,35 +11,43 @@
     <result column="room_name" property="roomName" jdbcType="VARCHAR" />
     <result column="activity_num" property="activityNum" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="building_id" property="buildingId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByKey" parameterType="map" >
     delete from occupation
     where occupation_id = #{occupationId,jdbcType=INTEGER}
-      and worktime_id = #{worktimeId,jdbcType=INTEGER}
   </delete>
 
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.Occupation" >
     update occupation
     set occupation_name = #{occupationName,jdbcType=VARCHAR},
-      year = #{year,jdbcType=INTEGER},
+      `year` = #{year,jdbcType=INTEGER},
       term = #{term,jdbcType=INTEGER},
       occupation_date = #{occupationDate,jdbcType=DATE},
       room_name = #{roomName,jdbcType=VARCHAR},
       activity_num = #{activityNum,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=CHAR}
+      user_id = #{userId,jdbcType=CHAR},
+      building_id = #{buildingId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=INTEGER}
     where occupation_id = #{occupationId,jdbcType=INTEGER}
       and worktime_id = #{worktimeId,jdbcType=INTEGER}
   </update>
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="map" >
-    select occupation_id, worktime_id, occupation_name, year, term, occupation_date, 
-    room_name, activity_num, user_id
+    select occupation_id, worktime_id, occupation_name, `year`, term, occupation_date,
+    room_name, activity_num, user_id building_id, `type`
     from occupation
     where occupation_id = #{occupationId,jdbcType=INTEGER}
-      and worktime_id = #{worktimeId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select occupation_id, worktime_id, occupation_name, year, term, occupation_date, 
-    room_name, activity_num, user_id
+    select occupation_id, worktime_id, occupation_name, `year`, term, occupation_date,
+    room_name, activity_num, user_id, building_id, `type`
     from occupation
+  </select>
+  <select id="selectByRoomName" resultMap="BaseResultMap" >
+    select occupation_id, worktime_id, occupation_name, `year`, term, occupation_date,
+    room_name, activity_num, user_id, building_id, `type`
+    from occupation
+    where room_name = #{roomName,jdbcType=VARCHAR}
   </select>
 </mapper>

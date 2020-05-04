@@ -22,4 +22,9 @@ public interface RoomMapper extends BaseMapper<Room> {
 
     //根据建筑物id和楼层得到教室名
     List<String> getRoomNameByFloorAndBuildingId(Integer floor,Integer buildingId);
+
+    List<Room> getByBuildingId(Integer buildingId);
+
+    //根据建筑物id和楼层
+    List<Room> getByBuildingIdAndFloor(Integer buildingId, Integer floor);
 }

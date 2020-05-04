@@ -1,5 +1,6 @@
 package com.venues.lt.demo.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class UserDto {
     private Integer role;
 
     // 0不是 5是管理 6是超级
+    @ApiModelProperty(value="0不是 5是管理 6是超级")
     private Integer isManager;
 
 }

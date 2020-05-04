@@ -28,7 +28,7 @@
       sex = #{sex,jdbcType=CHAR},
       dept_id = #{deptId,jdbcType=INTEGER},
       user_title = #{userTitle,jdbcType=VARCHAR},
-      position = #{position,jdbcType=VARCHAR},
+      `position` = #{position,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
@@ -36,13 +36,13 @@
     where user_id = #{userId,jdbcType=CHAR}
   </update>
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select user_id, user_name, password, id_number, sex, dept_id, user_title, position, 
+    select user_id, user_name, password, id_number, sex, dept_id, user_title, `position`,
     phone, email, wechat, status
     from user
     where user_id = #{userId,jdbcType=CHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select user_id, user_name, password, id_number, sex, dept_id, user_title, position, 
+    select user_id, user_name, password, id_number, sex, dept_id, user_title, `position`,
     phone, email, wechat, status
     from user
   </select>

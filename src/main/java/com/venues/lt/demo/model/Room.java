@@ -1,5 +1,6 @@
 package com.venues.lt.demo.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Id;
@@ -27,7 +28,8 @@ public class Room {
 
     private String roomType;
 
-    // 是否是常用教室 0否 1是
+    //
+    @ApiModelProperty(value="是否是常用教室 0否 1是")
     private Integer use;
 
 }

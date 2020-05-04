@@ -24,24 +24,24 @@
     set floor = #{floor,jdbcType=TINYINT},
       door_num = #{doorNum,jdbcType=VARCHAR},
       capacity = #{capacity,jdbcType=INTEGER},
-      status = #{status,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
       area = #{area,jdbcType=BIT},
       dept_id = #{deptId,jdbcType=INTEGER},
       building_id = #{buildingId,jdbcType=INTEGER},
       room_manager = #{roomManager,jdbcType=CHAR},
       room_type = #{roomType,jdbcType=VARCHAR},
-      use = #{use,jdbcType=INTEGER}
+      `use` = #{use,jdbcType=INTEGER}
     where room_name = #{roomName,jdbcType=VARCHAR}
   </update>
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
-    room_manager, room_type, use
+    select room_name, floor, door_num, capacity, `status`, area, dept_id, building_id,
+    room_manager, room_type, `use`
     from room
     where room_name = #{roomName,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select room_name, floor, door_num, capacity, status, area, dept_id, building_id, 
-    room_manager, room_type, use
+    select room_name, floor, door_num, capacity, `status`, area, dept_id, building_id,
+    room_manager, room_type, `use`
     from room
   </select>
   <select id="getFloorByBuildingId" resultType="java.lang.Integer" >
@@ -53,6 +53,20 @@
   </select>
   <select id="getRoomNameByFloorAndBuildingId" resultType="java.lang.String" >
     select room_name
+    from room
+    where building_id = #{buildingId,jdbcType=INTEGER}
+    and floor = #{floor,jdbcType=INTEGER}
+    ORDER BY room_name
+  </select>
+  <select id="getByBuildingId" resultMap="BaseResultMap" >
+    select room_name, floor, door_num, capacity, `status`, area, dept_id, building_id,
+    room_manager, room_type, `use`
+    from room
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </select>
+  <select id="getByBuildingIdAndFloor" resultMap="BaseResultMap">
+     select room_name, floor, door_num, capacity, `status`, area, dept_id, building_id,
+    room_manager, room_type, `use`
     from room
     where building_id = #{buildingId,jdbcType=INTEGER}
     and floor = #{floor,jdbcType=INTEGER}

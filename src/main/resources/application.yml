@@ -73,6 +73,13 @@ spring:
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
 
+# tk.mapper
+mapper:
+  not-empty: false
+  identity: MYSQL
+  mappers: com.venues.lt.framework.general.mapper.BaseMapper
+  before: true
+
 pagehelper:
   helperDialect: mysql #指定分页插件使用哪种方言
   reasonable: true #分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。

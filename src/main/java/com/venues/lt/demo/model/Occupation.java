@@ -1,5 +1,6 @@
 package com.venues.lt.demo.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -23,5 +24,11 @@ public class Occupation {
     private Integer activityNum;
 
     private String userId;
+
+    private Integer buildingId;
+
+    //
+    @ApiModelProperty(value="1是建筑物占用 2是场地占用")
+    private Integer type;
 
 }
