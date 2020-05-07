@@ -50,4 +50,10 @@
     from occupation
     where room_name = #{roomName,jdbcType=VARCHAR}
   </select>
+  <select id="selectBybuildingId" resultMap="BaseResultMap" >
+    select occupation_id, worktime_id, occupation_name, `year`, term, occupation_date,
+    room_name, activity_num, user_id, building_id, `type`
+    from occupation
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </select>
 </mapper>

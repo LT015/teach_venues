@@ -17,7 +17,7 @@ public interface UserService extends BaseService<User> {
      */
     UserDto getUserInfo(String userId);
 
-    List<UserDto> getUserList();
+    List<UserDto> getUserList(int deptId, String title, String position);
 
     int uploadUser( MultipartFile file);
 
@@ -25,4 +25,9 @@ public interface UserService extends BaseService<User> {
 
     UserDto updateRole(String userId,Integer roleId);
 
+    List<UserDto> selectByName(String name);
+
+    List<String> getTitleList();
+
+    List<String> getPositionList();
 }

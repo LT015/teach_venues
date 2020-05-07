@@ -12,7 +12,7 @@ import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/LBS/department")
+@RequestMapping("/venues/department")
 @Api(value = "部门",description = "部门操作api")
 public class DepartmentController {
 
@@ -44,16 +44,14 @@ public class DepartmentController {
     }
 
     @ResponseBody
-    @PostMapping("/update/description/{id:.+}/{description:.+}")
-    public Department updateDescription(@PathVariable int id, @PathVariable String description) throws UnsupportedEncodingException {
-        description = URLDecoder.decode(description, "utf-8");
+    @PostMapping("/update/description/{id:.+}")
+    public Department updateDescription(@PathVariable int id,@RequestParam("description") String description) {
         return departmentService.updateDescription(id, description);
     }
 
     @ResponseBody
-    @PostMapping("/update/name/{id:.+}/{name:.+}")
-    public Department updateName(@PathVariable int id, @PathVariable String name) throws UnsupportedEncodingException {
-        name = URLDecoder.decode(name, "utf-8");
+    @PostMapping("/update/name/{id:.+}")
+    public Department updateName(@PathVariable int id, @RequestParam("name") String name) {
         return departmentService.updateName(id, name);
     }
 

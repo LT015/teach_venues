@@ -16,12 +16,12 @@
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByKey" parameterType="java.lang.String" >
-    delete from user
+    delete from `user`
     where user_id = #{userId,jdbcType=CHAR}
   </delete>
 
   <update id="updateByPrimaryKey" parameterType="com.venues.lt.demo.model.User" >
-    update user
+    update `user`
     set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       id_number = #{idNumber,jdbcType=CHAR},
@@ -38,12 +38,20 @@
   <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select user_id, user_name, password, id_number, sex, dept_id, user_title, `position`,
     phone, email, wechat, status
-    from user
+    from `user`
     where user_id = #{userId,jdbcType=CHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select user_id, user_name, password, id_number, sex, dept_id, user_title, `position`,
     phone, email, wechat, status
-    from user
+    from `user`
+  </select>
+  <select id="selectTitle" resultType="java.lang.String" >
+   select distinct  user_title
+    from `user`
+  </select>
+  <select id="selectPosition" resultType="java.lang.String" >
+   select distinct  `position`
+    from `user`
   </select>
 </mapper>

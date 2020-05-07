@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 
 public interface RoomService extends BaseService<Room> {
 
-    List<RoomDto> selectByBuildingIdAndFloor(int buildingId, int floor);
+    List<RoomDto> selectByBuildingIdAndFloor(int buildingId, String floor, String capacity);
 
     RoomDto selectByRoomName(String roomName);
 
-    Room updateRoom(Room room);
+    List<Room> updateRoom( List<Room> room);
 
     int create(Room room);
 
@@ -32,6 +32,9 @@ public interface RoomService extends BaseService<Room> {
     List<Room> getByBuildingId(int building_id);
 
     List<Integer> confirm(String roomName1, String roomName2, String roomName3, Integer startTime, Integer endTime, String date);
+
+    // 根据场地名得到他的buildingId
+    Integer getBuildingIdByName(String name);
 
 
 }

@@ -11,6 +11,11 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 @RestController
@@ -73,4 +78,19 @@ public class ApplicationController {
         }
     }
 
+    @GetMapping("/download/{applicationId:.+}")
+    @ApiOperation(value = "下载申请书 ", notes = "下载申请书")
+    public String download(HttpServletRequest request, HttpServletResponse response, @PathVariable int applicationId) {
+
+        //使用流的形式下载文件
+        try {
+            //加载文件
+            applicationService.createWord(response,applicationId);
+
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "文件下载出错";
+        }
+    }
 }

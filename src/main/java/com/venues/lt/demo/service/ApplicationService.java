@@ -2,6 +2,8 @@ package com.venues.lt.demo.service;
 
 import com.venues.lt.demo.model.Application;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.util.List;
 
 public interface ApplicationService {
@@ -15,4 +17,6 @@ public interface ApplicationService {
     Application update(Integer applicationId, String userId, Integer state, String reason, String roomName);
 
     int getStatus(String date, int start, int end, String roomName);
+
+    String createWord(HttpServletResponse response, int applicationId);
 }

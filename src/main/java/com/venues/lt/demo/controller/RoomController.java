@@ -28,18 +28,17 @@ public class RoomController {
     RoomService roomService;
 
     @ResponseBody
-    @GetMapping(value = "/id/{id:.+}/type/{type:.+}/classtime/{classtime:.+}")
-    @ApiIgnore
-    public List<RoomDto> list(@PathVariable String id, @PathVariable int type, @PathVariable int classtime) {
+    @GetMapping(value = "/id/{id:.+}/type/classtime")
+    @ApiOperation(value = "此接口无用", notes = "此接口无用")
+    public RoomDto list() {
         return null;
     }
 
     @ResponseBody
-    @GetMapping(value = "/userId/{userId:.+}/roomName/{room:.+}/status/{status:.+}")
-    @ApiIgnore
-    public int collect(@PathVariable String userId,@PathVariable String room,@PathVariable int status) throws UnsupportedEncodingException {
-        room = URLDecoder.decode(room, "utf-8");
-        return 0;
+    @GetMapping(value = "/id/type/}")
+    @ApiOperation(value = "此接口无用", notes = "此接口无用")
+    public RoomStatus list2() {
+        return null;
     }
 
     @ResponseBody
@@ -83,8 +82,8 @@ public class RoomController {
     @ResponseBody
     @PostMapping("/update")
     @ApiOperation(value = "更新场地信息", notes = "更新场地信息")
-    public ResponseData updateBuilding(@RequestBody Room room) {
-        if(roomService.updateRoom(room) != null){
+    public ResponseData updateBuilding(@RequestBody List<Room> roomList) {
+        if(roomService.updateRoom(roomList) != null){
             return ResponseData.success();
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
@@ -99,6 +98,10 @@ public class RoomController {
                                                    @RequestParam("startTime") int startTime,
                                                    @RequestParam("endTime") int endTime,
                                                    @RequestParam("date") String date) {
+        String[] strings = date.split("-");
+        if(strings.length != 3 || strings[0].length() != 4 || strings[1].length() != 2 || strings[2].length() != 2){
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.DATE_FAILE);
+        }
         List<RoomStatus> list = roomService.getListByTimeAndBuildingId(buildingId,startTime,endTime,date);
         if(list!=null){
             return ResponseData.success(list);
@@ -116,9 +119,39 @@ public class RoomController {
                                                    @RequestParam("startTime") int startTime,
                                                    @RequestParam("endTime") int endTime,
                                                    @RequestParam("date") String date) {
+        String[] strings = date.split("-");
+        if(strings.length != 3 || strings[0].length() != 4 || strings[1].length() != 2 || strings[2].length() != 2){
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.DATE_FAILE);
+        }
         List<Integer> list = roomService.confirm(roomName1, roomName2, roomName3,startTime,endTime,date);
         if(list!=null){
             return ResponseData.success(list);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
+        }
+
+    }
+    @ResponseBody
+    @GetMapping("/list/buildingId")
+    @ApiOperation(value = "获取场地基础信息", notes = "获取场地基础信息")
+    public ResponseData baseInfoList(@RequestParam(value = "buildingId")  int buildingId,
+                                     @RequestParam(value = "floor", required = false) String floor,
+                                     @RequestParam(value = "capacity", required = false) String capacity) {
+        List<RoomDto> list = roomService.selectByBuildingIdAndFloor(buildingId,floor, capacity);
+        if(list!=null){
+            return ResponseData.success(list);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
+        }
+
+    }
+    @ResponseBody
+    @GetMapping("/list/roomName")
+    @ApiOperation(value = "根据场地名字查询", notes = "根据场地名字查询")
+    public ResponseData baseInfoList(@RequestParam("name") String name){
+        RoomDto roomDto = roomService.selectByRoomName(name);
+        if(roomDto!=null){
+            return ResponseData.success(roomDto);
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
         }

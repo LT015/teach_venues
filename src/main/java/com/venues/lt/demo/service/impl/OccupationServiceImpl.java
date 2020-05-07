@@ -45,7 +45,7 @@ public class OccupationServiceImpl extends BaseServiceImpl<Occupation> implement
     @Override
     public List<RoomStatus> getList(Integer buildingId, String date) {
         List<RoomStatus> list = new ArrayList<>();
-        List<RoomDto> roomDtoList = roomService.selectByBuildingIdAndFloor(buildingId,0);
+        List<RoomDto> roomDtoList = roomService.selectByBuildingIdAndFloor(buildingId,null,null);
         if(roomDtoList != null){
             for(int i = 0;i < roomDtoList.size();i++){
                 RoomStatus roomStatus = new RoomStatus();
@@ -58,7 +58,7 @@ public class OccupationServiceImpl extends BaseServiceImpl<Occupation> implement
                     roomStatus.setDeptName(roomDto.getDeptName());
                 }
                 roomStatus.setRoomName(roomDto.getRoomName());
-                roomStatus.setStatus("未占用");
+                roomStatus.setStatus("未使用");
                 List<Occupation> occupations = occupationMapper.selectByRoomName(roomDto.getRoomName());
                 if(occupations != null){
                     for (int j = 0;j < occupations.size();j++){
@@ -85,7 +85,10 @@ public class OccupationServiceImpl extends BaseServiceImpl<Occupation> implement
         return 1;
     }
     public int getStatus(String date, String roomName){
-        List<Occupation> occupations = occupationMapper.selectByRoomName(roomName);
+        List<Occupation> occupations = new ArrayList<>();
+        occupations.addAll(occupationMapper.selectByRoomName(roomName));
+        Integer buildingId = roomService.getBuildingIdByName(roomName);
+        occupations.addAll(occupationMapper.selectBybuildingId(buildingId));
         if(occupations != null){
             for (int j = 0;j < occupations.size();j++){
                 SimpleDateFormat sy1 = new SimpleDateFormat("yyyy-MM-dd");

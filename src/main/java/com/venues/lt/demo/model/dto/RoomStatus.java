@@ -1,9 +1,11 @@
 package com.venues.lt.demo.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel(value="RoomStatus",description="获取教室状态")
 public class RoomStatus {
     private String roomName;
 
@@ -11,6 +13,7 @@ public class RoomStatus {
 
     private Integer capacity;
 
+    @ApiModelProperty(value="包括未占用和已占用")
     private String status;
 
     private Integer area;

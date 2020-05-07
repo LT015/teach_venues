@@ -12,6 +12,7 @@ import com.venues.lt.demo.model.dto.TimetableDto;
 import com.venues.lt.demo.service.*;
 import com.venues.lt.demo.util.DateUtil;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
+import com.venues.lt.framework.general.service.QueryBuilder;
 import com.venues.lt.framework.utils.ExcelUtil;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +53,13 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
     @Autowired
     OccupationService occupationService;
 
-    public List<RoomDto> selectByBuildingIdAndFloor(int buildingId, int floor) {
-        List<Room> list = new ArrayList<>();
-        if(floor != 0){
-            list.addAll(roomMapper.getByBuildingIdAndFloor(buildingId,floor));
-        }else{
-            list.addAll(roomMapper.getByBuildingId(buildingId));
+    public List<RoomDto> selectByBuildingIdAndFloor(int buildingId, String floor, String capacity) {
+        List<Room> list  = roomMapper.getByBuildingId(buildingId);
+        if (!StringUtils.isEmpty(floor)) {
+            list = list.stream().filter(p -> p.getFloor() == Integer.valueOf(floor)).collect(Collectors.toList());
+        }
+        if (!StringUtils.isEmpty(capacity)) {
+            list = list.stream().filter(p -> p.getCapacity() >= Integer.valueOf(capacity)).collect(Collectors.toList());
         }
         return  list.stream().map(this::handleRoom).collect(Collectors.toList());
     }
@@ -108,9 +110,11 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
         return list;
     }
 
-    public Room updateRoom(Room room) {
-        this.updateByPrimaryKey(room);
-        return room;
+    public List<Room> updateRoom( List<Room> roomList) {
+        for(int i = 0;i< roomList.size();i++){
+            this.updateByPrimaryKey(roomList.get(i));
+        }
+        return roomList;
     }
 
     public List<RoomStatus> getListByTimeAndBuildingId(Integer buildingId, Integer start, Integer end, String date){
@@ -130,7 +134,7 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
                     roomStatus.setDeptName(roomDto.getDeptName());
                 }
                 roomStatus.setRoomName(roomDto.getRoomName());
-                roomStatus.setStatus("未占用");
+                roomStatus.setStatus("未使用");
                 if(roomDto.getStatus().equals("不可用")){
                     roomStatus.setStatus(roomDto.getStatus());
                 }else{
@@ -141,21 +145,21 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
                         String[] strings = timetableDto.getWeekly().split("-");
                         if(weekNum >= Integer.valueOf(strings[0]) && weekNum <= Integer.valueOf(strings[1])){
                             if(timetableDto.getWeekday() == dayOfWeek){
-                                if(startTime > timetableDto.getEndNum() || endTime > timetableDto.getStartNum()){
+                                if(startTime > timetableDto.getEndNum() || endTime < timetableDto.getStartNum()){
 
                                 }else{
-                                    roomStatus.setStatus("已占用");
+                                    roomStatus.setStatus("已使用");
                                 }
                             }
                         }
                     });
-                    if(roomStatus.getStatus().equals("未占用")){ // 去申请表里查
+                    if(roomStatus.getStatus().equals("未使用")){ // 去申请表里查
                         int flag = applicationService.getStatus(date, start, end, roomDto.getRoomName());
                         if(flag == 1){
-                            roomStatus.setStatus("已占用");
+                            roomStatus.setStatus("已使用");
                         }
                     }
-                    if(roomStatus.getStatus().equals("未占用")){ // 去占用表里查
+                    if(roomStatus.getStatus().equals("未使用")){ // 去占用表里查
                         int flag = occupationService.getStatus(date, roomDto.getRoomName());
                         if(flag == 1){
                             roomStatus.setStatus("已占用");
@@ -206,7 +210,9 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
 
         return list;
     }
-
+    public Integer getBuildingIdByName(String name){
+        return roomMapper.selectByKey(name).getBuildingId();
+    }
 
     private RoomDto handleRoom(Room room) {
         RoomDto roomDto  = new RoomDto();
@@ -288,13 +294,13 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
             }
             if(!stringList.get(indexList.get(6)).equals("")){
                 Department department =  departmentService.creatQuery()
-                        .andEqualTo("dept_name",stringList.get(indexList.get(6)))
+                        .andEqualTo("deptName",stringList.get(indexList.get(6)))
                         .list().get(0);
                 room.setDeptId(department.getDeptId());
             }
             if(!stringList.get(indexList.get(7)).equals("")){
                 Building building =  buildingService.creatQuery()
-                        .andEqualTo("dept_name",stringList.get(indexList.get(7)))
+                        .andEqualTo("deptName",stringList.get(indexList.get(7)))
                         .list().get(0);
                 room.setBuildingId(building.getBuildingId());
             }

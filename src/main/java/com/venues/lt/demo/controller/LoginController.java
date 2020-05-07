@@ -24,7 +24,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping
+@RequestMapping("/venues")
 @Api(value = "登录",description = "登录登出api")
 public class LoginController {
 

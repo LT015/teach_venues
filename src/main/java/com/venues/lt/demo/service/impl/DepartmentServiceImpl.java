@@ -37,7 +37,7 @@ public class DepartmentServiceImpl  extends BaseServiceImpl<Department> implemen
     }
 
     public List<Department> list() {
-        return this.list();
+        return departmentMapper.selectAll();
     }
 
     public Department queryById(int id) {

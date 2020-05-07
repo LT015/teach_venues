@@ -40,7 +40,7 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
     }
 
     public List<Building> list() {
-        return this.selectAll().list();
+        return buildingMapper.selectAll();
     }
     public List<Building> getListByStatus(Integer status) {
         String string = "正常使用";
@@ -74,7 +74,7 @@ public class BuildingServiceImpl  extends BaseServiceImpl<Building> implements B
     }
 
     public List<Building> getBuildingByName(String name) {
-        List<Building> list = this.creatQuery().andLike("building_name", name).list();
+        List<Building> list = this.creatQuery().andLike("buildingName", "%"+name+"%").list();
         return list;
     }
 

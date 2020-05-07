@@ -2,6 +2,7 @@ package com.venues.lt.demo.controller;
 
 
 import com.venues.lt.demo.model.User;
+import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.demo.model.dto.UserDto;
 import com.venues.lt.demo.service.UserService;
 import com.venues.lt.demo.util.ResponseCode;
@@ -18,10 +19,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -55,26 +59,45 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/getlist")
-    @ApiOperation(value = "获取用户列表", notes = "获取所有的用户信息")
-    public List<UserDto> getUserList(){
-        return userService.getUserList();
+    @GetMapping("/list/name")
+    @ApiOperation(value = "根据名字查询", notes = "根据名字查询")
+    public ResponseData userInfoList(@RequestParam("name") String name){
+        List<UserDto> userDtos = userService.selectByName(name);
+        if(userDtos!=null){
+            return ResponseData.success(userDtos);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
+        }
+
     }
 
-    @GetMapping("/getRedis")
     @ResponseBody
-    public String getRedisTest(){
-        ValueOperations valueOperations = redisTemplate.opsForValue();
-        valueOperations.set("first","hellow word");
-        redisTemplate.boundSetOps("nameset").add("曹操");
-        redisTemplate.boundSetOps("nameset").add("刘备");
-        redisTemplate.boundSetOps("nameset").add("孙权");
-        Set members = redisTemplate.boundSetOps("nameset").members();
-        return valueOperations.get("first").toString();
+    @GetMapping("/getlist")
+    @ApiOperation(value = "获取用户列表", notes = "根据筛选条件获取所有的用户信息  先选部门再显示用户")
+    public ResponseData getUserList(@RequestParam(value = "deptId")  int deptId,
+                                     @RequestParam(value = "title", required = false) String title,
+                                     @RequestParam(value = "position", required = false) String position){
+        return ResponseData.success(userService.getUserList(deptId, title, position));
     }
+
+    @ResponseBody
+    @GetMapping("/getTitle")
+    @ApiOperation(value = "获取职称列表", notes = "获取所有的用户职称")
+    public ResponseData getTitleList(){
+        return ResponseData.success(userService.getTitleList());
+    }
+
+    @ResponseBody
+    @GetMapping("/getPosition")
+    @ApiOperation(value = "获取职位列表", notes = "获取所有的用户职位")
+    public ResponseData getPositionList(){
+        return ResponseData.success(userService.getPositionList());
+    }
+
 
     @ResponseBody
     @PostMapping("/update/image")
+    @ApiIgnore
     public String updateImage(@RequestParam MultipartFile file){
 
         String originalFilename = file.getOriginalFilename(); //file.getOriginalFilename()是得到上传时的文件名

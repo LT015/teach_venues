@@ -15,4 +15,8 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> selectAll();
 
     int updateByPrimaryKey(User record);
+
+    List<String> selectTitle();
+
+    List<String> selectPosition();
 }

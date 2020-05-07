@@ -10,4 +10,6 @@ public interface ResponseMsg {
     String QUERY_FAIL = "查询失败";
     String ADD_FAIL = "添加失败";
     String UPDATE_FAILE = "更新失败";
+    String DATE_FAILE = "日期格式错误 应为yyyy-MM-dd";
+
 }

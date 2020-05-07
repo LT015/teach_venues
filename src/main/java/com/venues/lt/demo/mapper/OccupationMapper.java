@@ -19,4 +19,6 @@ public interface OccupationMapper extends BaseMapper<Occupation> {
     int updateByPrimaryKey(Occupation record);
 
     List<Occupation> selectByRoomName(String roomName);
+
+    List<Occupation> selectBybuildingId(Integer buildingId);
 }

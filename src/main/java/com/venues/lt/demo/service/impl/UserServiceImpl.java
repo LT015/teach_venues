@@ -12,12 +12,14 @@ import com.venues.lt.demo.service.DepartmentService;
 import com.venues.lt.demo.service.UserRoleService;
 import com.venues.lt.demo.service.UserService;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
+import com.venues.lt.framework.general.service.QueryBuilder;
 import com.venues.lt.framework.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -58,9 +60,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public List<UserDto> getUserList() {
-        List<User> userList = userMapper.selectAll();
-
+    public List<UserDto> getUserList(int deptId, String title, String position) {
+        QueryBuilder queryBuilder = this.creatQuery().andEqualTo("deptId",deptId);
+        if (!StringUtils.isEmpty(title)) {
+            queryBuilder.andEqualTo("userTitle",title);
+        }
+        if (!StringUtils.isEmpty(title)) {
+            queryBuilder.andEqualTo("position",position);
+        }
+        List<User> userList = queryBuilder.list();
         return userList.stream().map(this::handleUser).collect(Collectors.toList());
     }
 
@@ -117,13 +125,29 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return handleUser(user);
     }
 
+    public List<UserDto> selectByName(String name){
+        List<User> list = this.creatQuery().andLike("userName","%"+name+"%").list();
+        return list.stream().map(this::handleUser).collect(Collectors.toList());
+    }
+
+    public List<String> getTitleList(){
+        return userMapper.selectTitle();
+    }
+
+    public List<String> getPositionList(){
+        return userMapper.selectPosition();
+    }
+
     public UserDto handleUser(User user) {
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());
         userDto.setUserName(user.getUserName());
         userDto.setIdNumber(user.getIdNumber());
         userDto.setSex(user.getSex());
-        userDto.setDeptId(user.getDeptId());
+        if(user.getDeptId() != null){
+            userDto.setDeptId(user.getDeptId());
+            userDto.setDeptName(departmentService.queryById(user.getDeptId()).getDeptName());
+        }
         userDto.setUserTitle(user.getUserTitle());
         userDto.setPosition(user.getPosition());
         userDto.setPhone(user.getPhone());
@@ -181,7 +205,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
             user.setSex(stringList.get(indexList.get(4)));
             if(!stringList.get(indexList.get(5)).equals("")){
                 Department department =  departmentService.creatQuery()
-                        .andEqualTo("dept_name",stringList.get(indexList.get(5)))
+                        .andEqualTo("deptName",stringList.get(indexList.get(5)))
                         .list().get(0);
                 user.setDeptId(indexList.get(5));
             }

@@ -69,7 +69,17 @@ public class BuildingController {
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
         }
     }
-
+    @ResponseBody
+    @GetMapping("/list/name")
+    @ApiOperation(value = "根据建筑物名字搜索建筑物", notes = "根据建筑物名字搜索建筑物")
+    public ResponseData getListByName(@RequestParam("name") String name) {
+        List<Building> list = buildingService.getBuildingByName(name);
+        if(list!=null){
+            return ResponseData.success(list);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
+        }
+    }
     @ResponseBody
     @GetMapping("/{id:.+}")
     @ApiOperation(value = "根据建筑物id获取建筑物", notes = "")
