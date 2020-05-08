@@ -7,6 +7,7 @@ import com.venues.lt.demo.model.Department;
 import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.demo.model.dto.UserDto;
 import com.venues.lt.demo.service.*;
+import com.venues.lt.demo.util.DateUtil;
 import com.venues.lt.demo.util.WordUtil;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,8 @@ public class ApplicationServiceImpl  extends BaseServiceImpl<Application> implem
         application.setState(1);//进入部门审批中
         UserDto userDto = userService.getUserInfo(application.getUserId());
         application.setDeptId(String.valueOf(userDto.getDeptId()));
+        application.setYear(DateUtil.YEAR);
+        application.setTerm(DateUtil.TERM);
         Date date = new Date();
         application.setDate(date);
         this.save(application);

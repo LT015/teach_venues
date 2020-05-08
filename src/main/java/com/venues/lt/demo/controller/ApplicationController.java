@@ -27,7 +27,7 @@ public class ApplicationController {
 
 
     @ResponseBody
-    @PostMapping("/update/description/{id:.+}/{description:.+}")
+    @PostMapping("/commit")
     @ApiOperation(value = "提交申请", notes = "提交申请")
     public ResponseData updateDescription(@RequestBody Application application) {
         if(applicationService.commit(application) != null){

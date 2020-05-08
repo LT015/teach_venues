@@ -17,6 +17,7 @@ public class Application {
 
     private Integer term;
 
+    @ApiModelProperty(value="活动日期")
     private Date date;
 
     private Integer timeBegin;
@@ -40,10 +41,12 @@ public class Application {
     @ApiModelProperty(value="表示是否使用多媒体 1是 0否")
     private Integer media;
 
+    @ApiModelProperty(value="申请者职工号")
     private String userId;
 
     private String deptId;
 
+    @ApiModelProperty(value="申请日期")
     private Date applyDate;
 
     private String verify1;
