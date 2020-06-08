@@ -41,7 +41,7 @@ spring:
     host: smtp.163.com
     username: lt17694804829@163.com
     #对l63邮箱，password是授权码
-    password: Lb981029
+    password: XLZAGZLPFJHVHIGF
     properties:
       mail:
         smtp:
@@ -95,4 +95,10 @@ image:
   save:
     path: d:/SeverProject/images/demo/
   sonImgPath: /images/
+sms:
+  apiUrl: https://sms_developer.zhenzikj.com
+  appId: 100862
+  appSecret: 62358d10-bc0e-4152-a52c-578a8debc9b9
+
+
 
