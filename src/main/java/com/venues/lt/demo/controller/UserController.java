@@ -127,12 +127,62 @@ public class UserController {
     @ResponseBody
     @PostMapping("/update")
     @ApiOperation(value = "更新用户基本信息", notes = "更新用户基本信息 不包含角色")
-    public ResponseData updateBuilding(@RequestBody User user) {
+    public ResponseData updateUser(@RequestBody User user) {
         if(userService.updateUser(user) != null){
             return ResponseData.success();
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
         }
+    }
+
+    @ResponseBody
+    @PostMapping("/update/password")
+    @ApiOperation(value = "修改密码", notes = "修改密码")
+    public ResponseData updatePassWord(@RequestParam(value = "userId") String userId,
+                                       @RequestParam(value = "oldPassword") String oldPassword,
+                                       @RequestParam(value = "newPassword") String newPassword) {
+        int result = userService.updatePassWord(userId,oldPassword, newPassword);
+        if(result != 0){
+            return ResponseData.success();
+        }else if( result == 1){
+            return ResponseData.fail(ResponseCode.FAIL, "原密码错误");
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/update/phoneNum")
+    @ApiOperation(value = "修改手机号", notes = "修改手机号")
+    public ResponseData updatePhoneNum(@RequestParam(value = "userId") String userId,
+                                       @RequestParam(value = "phoneNum") String phoneNum,
+                                       @RequestParam(value = "code") String code) {
+        int result = userService.updatePhoneNum(userId,phoneNum,code);
+        if(result == 0){
+            return ResponseData.success("修改成功，请登录");
+        }else if(result == 1){
+            return ResponseData.fail(ResponseCode.FAIL, "验证码已过期");
+        }else if(result == 2){
+            return ResponseData.fail(ResponseCode.FAIL, "修改失败，验证码输入有误");
+        }
+        return null;
+    }
+
+    @ResponseBody
+    @PostMapping("/update/email")
+    @ApiOperation(value = "修改邮箱", notes = "修改邮箱")
+    public ResponseData updateEmail(@RequestParam(value = "userId") String userId,
+                                    @RequestParam(value = "email") String email,
+                                    @RequestParam(value = "code") String code) {
+        int result = userService.updateEmail(userId,email,code);
+        if(result == 0){
+            return ResponseData.success("邮箱修改成功");
+        }else if(result == 1){
+            return ResponseData.fail(ResponseCode.FAIL, "验证码已过期");
+        }else if(result == 2){
+            return ResponseData.fail(ResponseCode.FAIL, "修改失败，验证码输入有误");
+        }
+        return null;
     }
 
     @ResponseBody
@@ -147,5 +197,16 @@ public class UserController {
         }
 
     }
+    @ResponseBody
+    @DeleteMapping("/delete/{userId:.+}")
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    public ResponseData deleteUser(@PathVariable String userId) {
+        int result = userService.deleteUser(userId);
+        if(result != 0){
+            return ResponseData.success();
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
+        }
 
+    }
 }

@@ -44,7 +44,7 @@ public class Application {
     @ApiModelProperty(value="申请者职工号")
     private String userId;
 
-    private String deptId;
+    private Integer deptId;
 
     @ApiModelProperty(value="申请日期")
     private Date applyDate;

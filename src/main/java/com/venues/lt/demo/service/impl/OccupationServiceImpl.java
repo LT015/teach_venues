@@ -9,6 +9,7 @@ import com.venues.lt.demo.model.dto.RoomDto;
 import com.venues.lt.demo.model.dto.RoomStatus;
 import com.venues.lt.demo.service.OccupationService;
 import com.venues.lt.demo.service.RoomService;
+import com.venues.lt.demo.util.DateUtil;
 import com.venues.lt.framework.general.service.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +31,25 @@ public class OccupationServiceImpl extends BaseServiceImpl<Occupation> implement
     RoomService roomService;
 
     @Override
-    public int commitByRoom(List<Occupation> occupation) {
-        this.insertList(occupation);
+    public int commitByRoom(List<Occupation> occupations) {
+        for(int i = 0; i< occupations.size();i++){
+            occupations.get(i).setYear(DateUtil.YEAR);
+            occupations.get(i).setTerm(DateUtil.TERM);
+            occupations.get(i).setType(2);
+            this.save(occupations.get(i));
+        }
 
-        return 0;
+        return 1;
     }
 
     @Override
-    public int commitByBuilding(Occupation occupation) {
-        this.save(occupation);
+    public int commitByBuilding(List<Occupation> occupations) {
+        for(int i = 0; i < occupations.size();i++){
+            occupations.get(i).setYear(DateUtil.YEAR);
+            occupations.get(i).setTerm(DateUtil.TERM);
+            occupations.get(i).setType(1);
+            this.save( occupations.get(i));
+        }
         return 0;
     }
 
@@ -80,15 +91,17 @@ public class OccupationServiceImpl extends BaseServiceImpl<Occupation> implement
     }
 
     @Override
-    public int cancel(Integer occupationId) {
-        occupationMapper.deleteByKey(occupationId);
+    public int cancel(List<Integer> occupationIdList) {
+        for (int i = 0;i< occupationIdList.size();i++){
+            occupationMapper.deleteByKey(occupationIdList.get(i));
+        }
         return 1;
     }
     public int getStatus(String date, String roomName){
         List<Occupation> occupations = new ArrayList<>();
         occupations.addAll(occupationMapper.selectByRoomName(roomName));
         Integer buildingId = roomService.getBuildingIdByName(roomName);
-        occupations.addAll(occupationMapper.selectBybuildingId(buildingId));
+        occupations.addAll(this.creatQuery().andEqualTo("buildingId",buildingId).andEqualTo("type",1).list());
         if(occupations != null){
             for (int j = 0;j < occupations.size();j++){
                 SimpleDateFormat sy1 = new SimpleDateFormat("yyyy-MM-dd");

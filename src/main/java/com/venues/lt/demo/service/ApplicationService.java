@@ -16,6 +16,8 @@ public interface ApplicationService {
 
     Application update(Integer applicationId, String userId, Integer state, String reason, String roomName);
 
+    Application getDetailsById(Integer applicationId);
+
     int getStatus(String date, int start, int end, String roomName);
 
     String createWord(HttpServletResponse response, int applicationId);

@@ -29,7 +29,7 @@ public class ApplicationController {
     @ResponseBody
     @PostMapping("/commit")
     @ApiOperation(value = "提交申请", notes = "提交申请")
-    public ResponseData updateDescription(@RequestBody Application application) {
+    public ResponseData commit(@RequestBody Application application) {
         if(applicationService.commit(application) != null){
             return ResponseData.success();
         }else{
@@ -45,6 +45,18 @@ public class ApplicationController {
         List<Application> list = applicationService.getListByUserIdAndState(userId,state);
         if(list!=null){
             return ResponseData.success(list);
+        }else{
+            return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/details/{applicationId:.+}")
+    @ApiOperation(value = "根据id获得申请单详情", notes = "根据id获得申请单详情")
+    public ResponseData getDetailsById(@PathVariable Integer applicationId) {
+        Application  application = applicationService.getDetailsById(applicationId);
+        if(application != null){
+            return ResponseData.success(application);
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.QUERY_FAIL);
         }

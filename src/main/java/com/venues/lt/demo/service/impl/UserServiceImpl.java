@@ -16,6 +16,7 @@ import com.venues.lt.framework.general.service.QueryBuilder;
 import com.venues.lt.framework.utils.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Autowired
     DepartmentService departmentService;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     //@Cacheable(value = "user", key = "'user:'+#userId", unless = "#result==null")
@@ -93,8 +97,60 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     public User updateUser(User user) {
-        this.updateByPrimaryKey(user);
+        User newUser = userMapper.selectByKey(user.getUserId());
+        newUser.setPosition(user.getPosition());
+        newUser.setUserTitle(user.getUserTitle());
+        newUser.setStatus(user.getStatus());
+        newUser.setDeptId(user.getDeptId());
+        this.updateByPrimaryKey(newUser);
         return user;
+    }
+
+    public int updatePassWord(String userId, String oldPassword, String newPassword){
+        User user = userMapper.selectByKey(userId);
+        if(!oldPassword.equals(user.getPassword())){
+            return 1;
+        }
+        user.setPassword(newPassword);
+        this.updateByPrimaryKey(user);
+        return 0;
+    }
+
+    public int updatePhoneNum(String userId, String phone,String code){
+        String s = stringRedisTemplate.opsForValue().get(userId + "-" + phone);
+        JSONObject json = JSON.parseObject(s);
+        if (json.getString("code").equals(code)){
+            if((System.currentTimeMillis() > json.getLong("createTime"))){
+                User user = userMapper.selectByKey(userId);
+                user.setPhone(phone);
+                this.save(user);
+                stringRedisTemplate.delete(userId + "-" + phone);
+                return 0;
+            }
+            return 1;
+        }
+        return 2;
+    }
+
+    public int updateEmail(String userId, String email,String code){
+        String s = stringRedisTemplate.opsForValue().get(userId + "-" + email);
+        JSONObject json = JSON.parseObject(s);
+        if (json.getString("code").equals(code)){
+            if((System.currentTimeMillis() > json.getLong("createTime"))){
+                User user = userMapper.selectByKey(userId);
+                user.setEmail(email);
+                this.save(user);
+                stringRedisTemplate.delete(userId + "-" + email);
+                return 0;
+            }
+            return 1;
+        }
+        return 2;
+    }
+
+    public int deleteUser( String userId){
+        this.deleteByPrimaryKey(userId);
+        return 1;
     }
 
     public UserDto updateRole(String userId,Integer roleId) {

@@ -9,11 +9,11 @@ public interface OccupationService {
 
     int commitByRoom(List<Occupation> occupation);
 
-    int commitByBuilding(Occupation occupation);
+    int commitByBuilding(List<Occupation> occupations);
 
     List<RoomStatus> getList(Integer buildingId, String date);
 
-    int cancel(Integer occupationId);
+    int cancel(List<Integer> occupationId);
 
     int getStatus(String date, String roomName);
 }

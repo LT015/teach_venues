@@ -22,9 +22,9 @@ public class OccupationController {
 
     @ResponseBody
     @PostMapping("/commit/building")
-    @ApiOperation(value = "建筑物占用", notes = "建筑物占用")
-    public ResponseData commitByBuilding(@RequestBody Occupation occupation) {
-        if(occupationService.commitByBuilding(occupation) == 1){
+    @ApiOperation(value = "建筑物占用", notes = "建筑物占用,一定要填buildingId type为1,year和term不用填")
+    public ResponseData commitByBuilding(@RequestBody List<Occupation> occupations) {
+        if(occupationService.commitByBuilding(occupations) == 1){
             return ResponseData.success();
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);
@@ -34,7 +34,7 @@ public class OccupationController {
 
     @ResponseBody
     @PostMapping("/commit/room")
-    @ApiOperation(value = "场地占用", notes = "场地占用")
+    @ApiOperation(value = "场地占用", notes = "场地占用,year和term不用填")
     public ResponseData commitByRoom(@RequestBody List<Occupation> occupation) {
         if(occupationService.commitByRoom(occupation) == 1){
             return ResponseData.success();
@@ -61,8 +61,8 @@ public class OccupationController {
     @ResponseBody
     @PostMapping("/cancel")
     @ApiOperation(value = "取消场地占用", notes = "取消场地的占用 ")
-    public ResponseData cancel(@RequestParam("occupationId") int occupationId) {
-        if(occupationService.cancel(occupationId) == 1){
+    public ResponseData cancel(@RequestParam("occupationId") List<Integer> occupationIdList) {
+        if(occupationService.cancel(occupationIdList) == 1){
             return ResponseData.success();
         }else{
             return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.UPDATE_FAILE);

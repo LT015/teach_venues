@@ -23,6 +23,14 @@ public interface UserService extends BaseService<User> {
 
     User updateUser(User user);
 
+    int updatePassWord(String userId, String oldPassword, String newPassword);
+
+    int updatePhoneNum(String userId, String phone,String code);
+
+    int updateEmail(String userId, String email,String code);
+
+    int deleteUser( String userId);
+
     UserDto updateRole(String userId,Integer roleId);
 
     List<UserDto> selectByName(String name);

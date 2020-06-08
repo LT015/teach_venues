@@ -2,11 +2,12 @@ package com.venues.lt.demo.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
+import javax.persistence.Id;
 import java.util.Date;
 
 @Data
 public class Occupation {
+    @Id
     private Integer occupationId;
 
     private Integer worktimeId;
@@ -25,6 +26,7 @@ public class Occupation {
 
     private String userId;
 
+    @ApiModelProperty(value="按建筑物占用时需要填这个")
     private Integer buildingId;
 
     //

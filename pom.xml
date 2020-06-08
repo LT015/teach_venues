@@ -11,6 +11,7 @@
     <groupId>com.venues</groupId>
     <artifactId>lt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>lt</name>
     <description>Demo project for Spring Boot</description>
 
@@ -172,6 +173,16 @@
             <version>${poi.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.30</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhenzikj</groupId>
+            <artifactId>zhenzisms</artifactId>
+            <version>2.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -200,6 +211,14 @@
                 <configuration>
                     <!--如果想在没有web.xml文件的情况下构建WAR，请设置为false。-->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>

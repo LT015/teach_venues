@@ -45,9 +45,8 @@ public class ApplicationServiceImpl  extends BaseServiceImpl<Application> implem
 
     @Override
     public Application commit(Application application) {
-        application.setState(1);//进入部门审批中
         UserDto userDto = userService.getUserInfo(application.getUserId());
-        application.setDeptId(String.valueOf(userDto.getDeptId()));
+        application.setDeptId(userDto.getDeptId());
         application.setYear(DateUtil.YEAR);
         application.setTerm(DateUtil.TERM);
         Date date = new Date();
@@ -133,9 +132,11 @@ public class ApplicationServiceImpl  extends BaseServiceImpl<Application> implem
                 .list().get(0);
         if(userDto.getRole() == 1) {
             if(state == 1){         // 表示提交申请
-                application.setState(2);
+                application.setState(1);
             }else if(state == 2){       //用户点击结束按钮
                 application.setState(6); // 状态变为结束
+            }else if(state == 1){
+                application.setState(0);
             }
         }else if(userDto.getRole() == 2){ //部门管理者审批
             application.setVerify1(userId);
@@ -165,7 +166,15 @@ public class ApplicationServiceImpl  extends BaseServiceImpl<Application> implem
                 application.setState(5);
             }
         }
-        this.updateByPrimaryKey(application);
+        applicationMapper.updateByPrimaryKey(application);
+//        this.updateByPrimaryKey(application);
+        return application;
+    }
+
+    @Override
+    public Application getDetailsById(Integer applicationId){
+        Application application = this.creatQuery().andEqualTo("application",applicationId)
+                .list().get(0);
         return application;
     }
 
