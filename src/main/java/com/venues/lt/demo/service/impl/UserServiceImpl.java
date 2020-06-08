@@ -99,6 +99,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     public User updateUser(User user) {
         User newUser = userMapper.selectByKey(user.getUserId());
         newUser.setPosition(user.getPosition());
+        newUser.setWechat(user.getWechat());
         newUser.setUserTitle(user.getUserTitle());
         newUser.setStatus(user.getStatus());
         newUser.setDeptId(user.getDeptId());
